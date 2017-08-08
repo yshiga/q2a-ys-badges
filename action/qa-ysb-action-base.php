@@ -1,7 +1,8 @@
 <?php
 
 /**
- * それぞれのアクションの基底クラス
+ * それぞれのアクションの基底クラス。
+ *
  * @var [type]
  */
 abstract class qa_ysb_action_base {
@@ -11,56 +12,73 @@ abstract class qa_ysb_action_base {
   protected $userid;
   protected $count;
 
-  public function __construct($userid) {
-    $this->userid = $userid;
-  }
-
   /**
    * 現在の投稿テーブルの情報から、actionを1から計算し直す
-   * @return [type] [description]
+   *
+   * @param  ターゲットのUseridの配列
+   * @return アクションの数が変動したUseridの配列
    */
-  public function reculc(){
-    $this->count = $this->get_reculc_count();
-    $this->save();
+  public function reculc($userids){
+    $incremented_users = array();
+
+    foreach($userids as $userid) {
+      $reculc_count = $this->get_reculc_count($userid);
+      $current_count = $this->get_current_count($userid);
+
+      if($reculc_count > $current_count) {
+        $incremented_users[] = array('userid' => $userid, 'count' => $reculc_count);
+        $this->save($userid, $reculc_count);
+        error_log('update action count. userid:' . $userid);
+      } else {
+        error_log('no update action count. userid:' . $userid);
+      }
+    }
+
+    return $incremented_users;
   }
 
   /**
    * イベントの発生時にカウントを増加させる
    * @return [type] [description]
    */
-  public function increment_by_event($event){
-    if(check_increment()){
-      $count = $this->get_count();
-      if($count === null) {
-        $count = 0;
-      }
-      $count++;
+  public function increment_by_event($event, $params){
+    $users = $this->get_increment_target($event, $params);
+    return $this->reculc($users);
 
-      $this->save();
-      return true;
-    }
-    return false;
   }
 
   /**
-   * アクションの回数を返す。データ自体ない場合はnullが返る
+   * アクションの回数を返す。
    * @return [type] [description]
    */
-  private function get_count() {
+  private function get_current_count($userid) {
     $sql = 'SELECT count FROM ' . self::TABLE_NAME  . ' WHERE actionid=# AND userid=#';
-		$result = qa_db_read_one_value(qa_db_query_sub($sql, $this->get_actionid(), $this->userid), true);
+		$result = qa_db_read_one_value(qa_db_query_sub($sql, $this->get_actionid(), $userid), true);
+    if($result === null) {
+      $result = 0;
+    }
     return $result;
   }
 
-  private function save(){
+  private function has_record($userid){
+    $sql = 'SELECT count(*) FROM ' . self::TABLE_NAME  . ' WHERE actionid=# AND userid=#';
+		$result = qa_db_read_one_value(qa_db_query_sub($sql, $this->get_actionid(), $userid), true);
 
-    if($this->get_count() === null) {
+    if($result == 0) {
+      return false;
+    }
+    return true;
+  }
+
+  private function save($userid, $count){
+
+    if(!$this->has_record($userid)) {
       echo 'insert';
       qa_db_query_sub(
         'INSERT INTO ' . self::TABLE_NAME .
         ' (actionid, userid, count, updated) '.
         'VALUES (#, #, #, NOW())',
-        $this->get_actionid(), $this->userid, $this->count
+        $this->get_actionid(), $userid, $count
       );
 
     } else {
@@ -69,7 +87,7 @@ abstract class qa_ysb_action_base {
         'UPDATE ' . self::TABLE_NAME .
         ' SET count=# '.
         'WHERE actionid=# AND userid=#',
-        $this->count, $this->get_actionid(), $this->userid
+        $count, $this->get_actionid(), $userid
       );
     }
 
@@ -84,12 +102,11 @@ abstract class qa_ysb_action_base {
   /**
    * テーブルでの再計算用のSQLを返す
    */
-  abstract public function get_reculc_count();
+  abstract public function get_reculc_count($userid);
 
   /**
-   * イベント発生時にアクションとしてカウントするか判定する。
-   * 殖やす場合は、true, そうでなければfalseを返す
+   * イベント発生時に再計算しなおす対象のuseridを配列で取得
    */
-  abstract public function check_increment($event, $params);
+  abstract public function get_increment_target($event, $params);
 
 }

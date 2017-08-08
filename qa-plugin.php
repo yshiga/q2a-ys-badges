@@ -22,3 +22,14 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 
 qa_register_plugin_module('event', 'install/q2a-ysb-install.php', 'q2a_ysb_install', 'YSB Install');
 qa_register_plugin_module('event', 'event/q2a-ysb-event.php', 'q2a_ysb_event', 'YSB Event');
+
+
+class qa_ysb_const {
+	const ACTIONS = array(
+		'101', // 回答に対する支持が一定数以上付与される
+		'102', // 回答する
+		'103', // 質問投稿の直後に回答する。
+		'104', // 一定期間回答がつかない質問に回答する
+		'105', // 文章量多く回答する
+	);
+}

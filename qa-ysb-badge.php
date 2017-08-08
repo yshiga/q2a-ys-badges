@@ -3,10 +3,6 @@ class qa_ysb_badges {
 
   private $actions = array();
 
-  public function __construct($userid) {
-
-  }
-
   /**
    * 保有しているバッチをすべて取得
    * @return [type] [description]
@@ -28,9 +24,11 @@ class qa_ysb_badges {
    *
    * @param [type] $actionid [description]
    * @param [type] $count    [description]
+   * @return バッチ付与なら付与したバッチのID, 付与なしならnullを返す
    */
   public function add_badge($actionid, $count){
-
+    return 'test';
 
   }
+
 }
