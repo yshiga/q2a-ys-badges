@@ -1,8 +1,7 @@
-
 <?php
 
 /*
-	Plugin Name: QA YS Badge
+	Plugin Name: Badge
 	Plugin URI: https://github.com/yshiga/q2a-ys-badges
 	Plugin Description: provide simple badge functions
 	Plugin Version: 1.0.0
@@ -19,7 +18,7 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 	exit;
 }
 
-@define( 'YSB_DIR', dirname( __FILE__ ) );
+@define( YSB_DIR, dirname( __FILE__ ) );
 
-// layer to show notice
-//qa_register_plugin_module('event', 'install/q2a-ysb-install.php', 'q2a_ysb_install', 'YS Basge Install');
+qa_register_plugin_module('event', 'install/q2a-ysb-install.php', 'q2a_ysb_install', 'YSB Install');
+qa_register_plugin_module('event', 'event/q2a-ysb-event.php', 'q2a_ysb_event', 'YSB Event');
