@@ -21,6 +21,11 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 
 qa_register_plugin_module('event', 'install/q2a-ysb-install.php', 'q2a_ysb_install', 'YSB Install');
 qa_register_plugin_module('event', 'event/q2a-ysb-event.php', 'q2a_ysb_event', 'YSB Event');
+qa_register_plugin_module('page', 'page/q2a-badge-page.php', 'qa_badge_page', 'YSB Badges');
+
+qa_register_plugin_layer('layer/q2a-ysb-layer.php','YSB layer');
+
+qa_register_plugin_phrases('lang/q2a-ysb-lang-*.php', 'ysb');
 
 
 class qa_ysb_const {
