@@ -41,8 +41,8 @@ abstract class qa_ysb_action_base {
    * イベントの発生時にカウントを増加させる
    * @return [type] [description]
    */
-  public function increment_by_event($event, $params){
-    $users = $this->get_increment_target($event, $params);
+  public function increment_by_event($event, $post_userid, $params) {
+    $users = $this->get_increment_target($event, $post_userid, $params);
     return $this->reculc($users);
 
   }
@@ -107,6 +107,6 @@ abstract class qa_ysb_action_base {
   /**
    * イベント発生時に再計算しなおす対象のuseridを配列で取得
    */
-  abstract public function get_increment_target($event, $params);
+  abstract public function get_increment_target($event, $post_userid, $params);
 
 }

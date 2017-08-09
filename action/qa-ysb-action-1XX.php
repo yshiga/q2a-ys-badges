@@ -1,6 +1,19 @@
 <?php
 
-class qa_ysb_action_101 extends qa_ysb_action_base {
+/**
+ * 100番台の回答系のアクションのベースクラス
+ */
+class qa_ysb_action_1XX_base extends qa_ysb_action_base {
+
+  public function get_increment_target($event, $post_userid, $params) {
+    if($event == 'a_post'){
+      return array($post_userid);
+    }
+    return array();
+  }
+}
+
+class qa_ysb_action_101 extends qa_ysb_action_1XX_base {
 
   const UPVOTE_THRESHOLD = 1;
 
@@ -13,7 +26,7 @@ class qa_ysb_action_101 extends qa_ysb_action_base {
 		return qa_db_read_one_value(qa_db_query_sub($sql, self::UPVOTE_THRESHOLD, $userid));
   }
 
-  public function get_increment_target($event, $params) {
+  public function get_increment_target($event, $post_userid, $params) {
     if($event == 'a_vote'){
       return array($params['userid']);
     }
@@ -21,7 +34,7 @@ class qa_ysb_action_101 extends qa_ysb_action_base {
   }
 }
 
-class qa_ysb_action_102 extends qa_ysb_action_base {
+class qa_ysb_action_102 extends qa_ysb_action_1XX_base {
 
   public function get_actionid(){
     return 102;
@@ -32,15 +45,9 @@ class qa_ysb_action_102 extends qa_ysb_action_base {
 		return qa_db_read_one_value(qa_db_query_sub($sql, $userid));
   }
 
-  public function get_increment_target($event, $params) {
-    if($event == 'a_post'){
-
-    }
-    return array();
-  }
 }
 
-class qa_ysb_action_103 extends qa_ysb_action_base {
+class qa_ysb_action_103 extends qa_ysb_action_1XX_base {
 
   const MIN_THRESHOLD = 15;
 
@@ -56,16 +63,9 @@ class qa_ysb_action_103 extends qa_ysb_action_base {
     $sql .= 'HAVING time < #) AS tmp';
 		return qa_db_read_one_value(qa_db_query_sub($sql, $userid, self::MIN_THRESHOLD));
   }
-
-  public function get_increment_target($event, $params) {
-    if($event == 'a_post'){
-
-    }
-    return array();
-  }
 }
 
-class qa_ysb_action_104 extends qa_ysb_action_base {
+class qa_ysb_action_104 extends qa_ysb_action_1XX_base {
 
   const HOUR_THRESHOLD = 23;
 
@@ -81,17 +81,10 @@ class qa_ysb_action_104 extends qa_ysb_action_base {
     $sql .= 'WHERE tmp.userid = #';
 		return qa_db_read_one_value(qa_db_query_sub($sql, self::HOUR_THRESHOLD, $userid));
   }
-
-  public function get_increment_target($event, $params) {
-    if($event == 'a_post'){
-
-    }
-    return array();
-  }
 }
 
 
-class qa_ysb_action_105 extends qa_ysb_action_base {
+class qa_ysb_action_105 extends qa_ysb_action_1XX_base {
 
   const CHAR_LENGTH_THRESHOLD = 500;
 
@@ -105,12 +98,5 @@ class qa_ysb_action_105 extends qa_ysb_action_base {
     $sql .= ' FROM qa_posts WHERE type="A" AND userid = # ';
     $sql .= ' HAVING length > #) as tmp';
 		return qa_db_read_one_value(qa_db_query_sub($sql, $userid, self::CHAR_LENGTH_THRESHOLD));
-  }
-
-  public function get_increment_target($event, $params) {
-    if($event == 'a_post'){
-
-    }
-    return array();
   }
 }
