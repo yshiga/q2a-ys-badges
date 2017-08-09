@@ -60,25 +60,27 @@ class qa_badge_page
           }
 
           $next_count = -1;
+          if($level < MAX_BADGE_LEVEL) {
+            $next_count = $badge_master['action_level_' . ($level+1)];
+          }
 
-          // TODO magic number
-          if($level < 3) {
-            $next_count = $badge_master['count'][$level];
+          $need_action_count = -1;
+          if($level == MAX_BADGE_LEVEL)  {
+            $need_action_count = 0;
+          } else {
+            $need_action_count = $next_count - $badges_owns[$badgeid]['count'];
           }
 
           $badge_info[] = array(
             'badgeid' => $badge_master['badgeid'],
             'level' => $level,
             'next_action_count' => $next_count,
-//            'need_action_count' => ,
-//            'current_action_count' =>,
+            'need_action_count' => $need_action_count,
+            'current_action_count' => $badges_owns[$badgeid]['count']
           );
 
         }
         $qa_content['custom']['badge_info'] = $badge_info;
-
-        var_dump($badge_info);
-
 
         return $qa_content;
     }

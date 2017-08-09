@@ -8,8 +8,11 @@ class qa_ysb_badges {
    * @return [type] [description]
    */
   public function find_by_userid($userid){
-    $sql = 'SELECT * FROM ' . self::TABLE_NAME . ' WHERE userid = #';
-		return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid));
+    $sql = 'SELECT bt.badgeid, bt.userid, bt.level, at.count, mt.action_level_1, mt.action_level_2, mt.action_level_3 ';
+    $sql .= ' FROM  qa_ysb_badges AS bt LEFT JOIN qa_ysb_badge_master AS mt ON bt.badgeid = mt.badgeid ';
+    $sql .= ' LEFT JOIN qa_ysb_actions AS at ON mt.actionid = at.actionid ';
+    $sql .= ' WHERE bt.userid=# AND at.userid=#';
+		return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid, $userid));
   }
 
   /**
