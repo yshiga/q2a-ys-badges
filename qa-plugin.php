@@ -1,5 +1,4 @@
 <?php
-
 /*
 	Plugin Name: Badge
 	Plugin URI: https://github.com/yshiga/q2a-ys-badges
@@ -25,11 +24,40 @@ qa_register_plugin_module('event', 'event/q2a-ysb-event.php', 'q2a_ysb_event', '
 
 
 class qa_ysb_const {
+
+	const BADGES = array(
+		array(
+			'badgeid' => 10001,
+			'actionid' => 101,
+			'count' => array(1, 5, 10)
+		),
+		array(
+			'badgeid' => 10002,
+			'actionid' => 102,
+			'count' => array(1, 20, 50)
+		),
+		array(
+			'badgeid' => 10003,
+			'actionid' => 103,
+			'count' => array(1, 3, 10)
+		),
+		array(
+			'badgeid' => 10004,
+			'actionid' => 104,
+			'count' => array(1, 5, 10)
+		),
+		array(
+			'badgeid' => 10005,
+			'actionid' => 104,
+			'count' => array(1, 10, 20)
+		),
+	);
+
 	const ACTIONS = array(
-		'101', // 回答に対する支持が一定数以上付与される
-		'102', // 回答する
-		'103', // 質問投稿の直後に回答する。
-		'104', // 一定期間回答がつかない質問に回答する
-		'105', // 文章量多く回答する
+		101, // 回答に対する支持が一定数以上付与される
+		102, // 回答する
+		103, // 質問投稿の直後に回答する。
+		104, // 一定期間回答がつかない質問に回答する
+		105, // 文章量多く回答する
 	);
 }

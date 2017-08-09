@@ -26,7 +26,7 @@ abstract class qa_ysb_action_base {
       $current_count = $this->get_current_count($userid);
 
       if($reculc_count > $current_count) {
-        $incremented_users[] = array('userid' => $userid, 'count' => $reculc_count);
+        $incremented_users[] = array('userid' => $userid, 'actionid' =>  $this->get_actionid(), 'count' => $reculc_count);
         $this->save($userid, $reculc_count);
         error_log('update action count. userid:' . $userid);
       } else {
