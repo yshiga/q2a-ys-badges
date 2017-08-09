@@ -18,6 +18,7 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 }
 
 @define( YSB_DIR, dirname( __FILE__ ) );
+@define( MAX_BADGE_LEVEL, 3);
 
 qa_register_plugin_module('event', 'install/q2a-ysb-install.php', 'q2a_ysb_install', 'YSB Install');
 qa_register_plugin_module('event', 'event/q2a-ysb-event.php', 'q2a_ysb_event', 'YSB Event');
@@ -29,34 +30,6 @@ qa_register_plugin_phrases('lang/q2a-ysb-lang-*.php', 'ysb');
 
 
 class qa_ysb_const {
-
-	const BADGES = array(
-		array(
-			'badgeid' => 10001,
-			'actionid' => 101,
-			'count' => array(1, 5, 10)
-		),
-		array(
-			'badgeid' => 10002,
-			'actionid' => 102,
-			'count' => array(1, 20, 50)
-		),
-		array(
-			'badgeid' => 10003,
-			'actionid' => 103,
-			'count' => array(1, 3, 10)
-		),
-		array(
-			'badgeid' => 10004,
-			'actionid' => 104,
-			'count' => array(1, 5, 10)
-		),
-		array(
-			'badgeid' => 10005,
-			'actionid' => 104,
-			'count' => array(1, 10, 20)
-		),
-	);
 
 	const ACTIONS = array(
 		101, // 回答に対する支持が一定数以上付与される

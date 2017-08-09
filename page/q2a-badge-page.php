@@ -1,4 +1,7 @@
 <?php
+require_once YSB_DIR . '/qa-ysb-badge.php';
+require_once YSB_DIR . '/qa-ysb-badge-master.php';
+
 class qa_badge_page
 {
     public $directory;
@@ -30,8 +33,52 @@ class qa_badge_page
     public function process_request($request)
     {
         qa_set_template('badges');
+
         $qa_content=qa_content_prepare();
         $qa_content['title']=qa_lang('ysb/page_title');
+
+        $userid = qa_get_logged_in_userid();
+
+        $badges_model = new qa_ysb_badges();
+        $badges_owns = $badges_model->find_by_userid($userid);
+
+        $tmp = array();
+        foreach($badges_owns as $badge) {
+          $tmp[$badge['badgeid']] = $badge;
+        }
+        $badges_owns = $tmp;
+
+        $badge_info = array();
+        $badge_masters = qa_ysb_badge_master::find_all();
+        // 所有バッチの情報を生成する
+        foreach($badge_masters as $badge_master) {
+          $level = 0;
+          $badgeid =  $badge_master['badgeid'];
+
+          if(!empty($badges_owns[$badgeid])) {
+            $level = $badges_owns[$badgeid]['level'];
+          }
+
+          $next_count = -1;
+
+          // TODO magic number
+          if($level < 3) {
+            $next_count = $badge_master['count'][$level];
+          }
+
+          $badge_info[] = array(
+            'badgeid' => $badge_master['badgeid'],
+            'level' => $level,
+            'next_action_count' => $next_count,
+//            'need_action_count' => ,
+//            'current_action_count' =>,
+          );
+
+        }
+        $qa_content['custom']['badge_info'] = $badge_info;
+
+        var_dump($badge_info);
+
 
         return $qa_content;
     }

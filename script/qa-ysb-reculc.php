@@ -5,6 +5,7 @@ if (!defined('QA_VERSION')) {
 }
 
 require_once YSB_DIR . '/qa-ysb-badge.php';
+require_once YSB_DIR . '/qa-ysb-badge-master.php';
 require_once YSB_DIR . '/action/qa-ysb-action-base.php';
 require_once YSB_DIR . '/action/qa-ysb-action-1XX.php';
 

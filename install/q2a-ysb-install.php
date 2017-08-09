@@ -8,7 +8,7 @@ if (!defined('QA_VERSION')) {
 class q2a_ysb_install {
 
   // 生成するテーブル。qa_ysb_のプレフィックスは抜き
-	private $table_names = array('actions', 'badges');
+	private $table_names = array('actions', 'badges', 'badge_master');
 
 	/**
 	 * create table function of framework
@@ -17,7 +17,7 @@ class q2a_ysb_install {
 	 */
 	function init_queries($tableslc) {
 		$queries = array();
-		
+
     foreach($this->table_names as $table_name) {
       if (!in_array(qa_db_add_table_prefix('ysb_' . $table_name), $tableslc)) {
 				$queries[] = file_get_contents(YSB_DIR . '/sql/qa_ysb_create_' . $table_name . '_table.sql');

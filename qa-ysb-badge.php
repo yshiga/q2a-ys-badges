@@ -8,7 +8,7 @@ class qa_ysb_badges {
    * @return [type] [description]
    */
   public function find_by_userid($userid){
-    $sql = 'SELECT * FROM ' . self::TABLE_NAME . 'WHERE userid = #';
+    $sql = 'SELECT * FROM ' . self::TABLE_NAME . ' WHERE userid = #';
 		return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid));
   }
 
@@ -48,7 +48,8 @@ class qa_ysb_badges {
 
     $badges = array();
 
-    foreach(qa_ysb_const::BADGES as $badge){
+    $badge_masters = qa_ysb_badge_master::find_all();
+    foreach($badge_masters as $badge){
       if($badge['actionid'] != $actionid){
         continue;
       }
@@ -58,8 +59,11 @@ class qa_ysb_badges {
       // 次のレベルを超えている
       $new_level = $current_level;
 
-      for($i=$new_level; $i < 3; $i++) {
-        if($count >= $badge['count'][$i]) {
+      // バッチ獲得に必要なアクション数
+      $action_levels = array( $badge['action_level_1'], $badge['action_level_2'], $badge['action_level_3']);
+      error_log('current:' . $current_level . 'levels:' . print_r($action_levels, true));
+      for($i=$new_level; $i <  MAX_BADGE_LEVEL; $i++) {
+        if($count >= $action_levels[$i]) {
           $new_level++;
         } else{
           break;
