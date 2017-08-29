@@ -4,7 +4,10 @@ class qa_html_theme_layer extends qa_html_theme_base
   public function main()
   {
     if($this->template == 'badges'){
+        $html = file_get_contents(YSB_DIR . '/html/badges.html');
+        $this->output($html);
 
+/*
       foreach($this->content['custom']['badge_info'] as $badge){
         $this->output('・');
         $this->output(qa_lang('ysb/badge_name_' . $badge['badgeid']));
@@ -16,6 +19,7 @@ class qa_html_theme_layer extends qa_html_theme_base
       }
       $html = '';
 
+*/
     } else {
       parent::main();
     }
