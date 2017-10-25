@@ -12,8 +12,8 @@ class q2a_ysb_event {
     $badges = new qa_ysb_badges();
 
     foreach(qa_ysb_const::ACTIONS as $actionid){
-      $clasname = 'qa_ysb_action_' . $actionid;
-      $tmp = new $clasname();
+      $classname = 'qa_ysb_action_' . $actionid;
+      $tmp = new $classname();
 
       // actionテーブルを更新
       $imcrements = $tmp->increment_by_event($event, $post_userid, $params);

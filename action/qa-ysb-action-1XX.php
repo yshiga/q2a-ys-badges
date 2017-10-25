@@ -6,6 +6,7 @@
 abstract class qa_ysb_action_1XX_base extends qa_ysb_action_base {
 
   public function get_increment_target($event, $post_userid, $params) {
+    _log($post_userid);
     if($event == 'a_post'){
       return array($post_userid);
     }

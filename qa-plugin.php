@@ -39,3 +39,15 @@ class qa_ysb_const {
 		105, // 文章量多く回答する
 	);
 }
+
+if (!function_exists('_log')) {
+	function _log( $message )
+	{ 
+		if( is_array( $message ) || is_object( $message ) ) { 
+			error_log( "DEBUG: " . print_r( $message, true ) ); 
+		} else { 
+			error_log( "DEBUG: " . $message ); 
+		}
+		return $message; 
+	}
+}
