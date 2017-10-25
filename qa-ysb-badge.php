@@ -1,4 +1,7 @@
 <?php
+
+require_once YSB_DIR . '/qa-ysb-badge-master.php';
+
 class qa_ysb_badges {
 
   const TABLE_NAME = '^ysb_badges';
