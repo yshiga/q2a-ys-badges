@@ -22,7 +22,7 @@ $userids = array_map(function($v){
 foreach(qa_ysb_const::ACTIONS as $actionid){
 	$clasname = 'qa_ysb_action_' . $actionid;
 	$tmp = new $clasname();
-	$imcrements = $tmp->reculc($userids);
+	$imcrements = $tmp->recalc($userids);
 	foreach($imcrements as $imcrement){
 		$badges->add_badge($imcrement['userid'], $imcrement['actionid'], $imcrement['count']);
 	}

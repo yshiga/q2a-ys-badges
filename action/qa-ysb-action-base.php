@@ -18,16 +18,16 @@ abstract class qa_ysb_action_base {
    * @param  ターゲットのUseridの配列
    * @return アクションの数が変動したUseridの配列
    */
-  public function reculc($userids){
+  public function recalc($userids){
     $incremented_users = array();
 
     foreach($userids as $userid) {
-      $reculc_count = $this->get_reculc_count($userid);
+      $recalc_count = $this->get_recalc_count($userid);
       $current_count = $this->get_current_count($userid);
 
-      if($reculc_count > $current_count) {
-        $incremented_users[] = array('userid' => $userid, 'actionid' =>  $this->get_actionid(), 'count' => $reculc_count);
-        $this->save($userid, $reculc_count);
+      if($recalc_count > $current_count) {
+        $incremented_users[] = array('userid' => $userid, 'actionid' =>  $this->get_actionid(), 'count' => $recalc_count);
+        $this->save($userid, $recalc_count);
         error_log('update action count. userid:' . $userid);
       } else {
         error_log('no update action count. userid:' . $userid);
@@ -43,7 +43,7 @@ abstract class qa_ysb_action_base {
    */
   public function increment_by_event($event, $post_userid, $params) {
     $users = $this->get_increment_target($event, $post_userid, $params);
-    return $this->reculc($users);
+    return $this->recalc($users);
 
   }
 
@@ -102,7 +102,7 @@ abstract class qa_ysb_action_base {
   /**
    * テーブルでの再計算用のSQLを返す
    */
-  abstract public function get_reculc_count($userid);
+  abstract public function get_recalc_count($userid);
 
   /**
    * イベント発生時に再計算しなおす対象のuseridを配列で取得

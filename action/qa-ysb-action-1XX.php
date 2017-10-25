@@ -21,7 +21,7 @@ class qa_ysb_action_101 extends qa_ysb_action_1XX_base {
     return 101;
   }
 
-  public function get_reculc_count($userid){
+  public function get_recalc_count($userid){
     $sql = 'SELECT count(*) FROM ^posts WHERE upvotes > # AND type="A" AND userid=#';
 		return qa_db_read_one_value(qa_db_query_sub($sql, self::UPVOTE_THRESHOLD, $userid));
   }
@@ -40,7 +40,7 @@ class qa_ysb_action_102 extends qa_ysb_action_1XX_base {
     return 102;
   }
 
-  public function get_reculc_count($userid){
+  public function get_recalc_count($userid){
     $sql = 'SELECT count(*) FROM qa_posts WHERE type="A" AND userid= #';
 		return qa_db_read_one_value(qa_db_query_sub($sql, $userid));
   }
@@ -55,7 +55,7 @@ class qa_ysb_action_103 extends qa_ysb_action_1XX_base {
     return 103;
   }
 
-  public function get_reculc_count($userid){
+  public function get_recalc_count($userid){
     $sql = 'SELECT count(*) FROM (';
     $sql .= 'SELECT qt.postid, TIMESTAMPDIFF(MINUTE, qt.created, at.created) AS time, at.userid ';
     $sql .= 'FROM qa_posts AS qt LEFT JOIN qa_posts AS at ON qt.postid = at.parentid ';
@@ -73,7 +73,7 @@ class qa_ysb_action_104 extends qa_ysb_action_1XX_base {
     return 104;
   }
 
-  public function get_reculc_count($userid){
+  public function get_recalc_count($userid){
     $sql = 'SELECT count(*) FROM (';
     $sql .= 'SELECT min(TIMESTAMPDIFF(HOUR, qt.created, at.created)) as min_time, at.userid as userid ';
     $sql .= 'FROM qa_posts AS qt LEFT JOIN qa_posts AS at ON qt.postid = at.parentid ';
@@ -92,7 +92,7 @@ class qa_ysb_action_105 extends qa_ysb_action_1XX_base {
     return 105;
   }
 
-  public function get_reculc_count($userid){
+  public function get_recalc_count($userid){
     $sql = 'SELECT count(*) FROM (';
     $sql .= ' SELECT CHAR_LENGTH(content) AS length, userid ';
     $sql .= ' FROM qa_posts WHERE type="A" AND userid = # ';
