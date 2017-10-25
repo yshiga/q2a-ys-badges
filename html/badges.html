@@ -33,8 +33,8 @@
         <p class="mdl-typography--body-1-color-contrast mdl-color-text--grey margin--bottom-0">500文字以上の回答を<br class="mdl-cell--hide-phone">投稿する。</p><!-- .mdl-typography--caption -->
       </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
       <div class="mdl-cell mdl-cell--12-col">
-        <button id="show-dialog" type="button" class="mdl-button">Show Dialog</button>
-  <dialog class="mdl-dialog mdl-typography--text-center" style="min-width:360px;">
+        <button id="show-badge-dialog" type="button" class="mdl-button">Show Dialog</button>
+  <dialog class="mdl-dialog mdl-typography--text-center" id="badge_dialog" style="min-width:360px;">
     <h4 class="mdl-typography--headline">回答者バッジを取得しました！</h4>
     <div class="mdl-dialog__content">
       <img src="../qa-plugin/q2a-ys-badges/img/badge-answer-01.svg" alt="バッジ" style="min-width:100px">
@@ -51,16 +51,16 @@
     </div>
   </dialog>
   <script>
-    var dialog = document.querySelector('dialog');
-    var showDialogButton = document.querySelector('#show-dialog');
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
+    var bdialog = document.getElementById('badge_dialog');
+    var showBadgeDialog = document.getElementById('show-badge-dialog');
+    if (! bdialog.showModal) {
+      dialogPolyfill.registerDialog(bdialog);
     }
-    showDialogButton.addEventListener('click', function() {
-      dialog.showModal();
+    showBadgeDialog.addEventListener('click', function() {
+      bdialog.showModal();
     });
-    dialog.querySelector('.mdl-button.close').addEventListener('click', function() {
-      dialog.close();
+    bdialog.querySelector('.mdl-button.close').addEventListener('click', function() {
+      bdialog.close();
     });
   </script>
       </div><!-- .mdl-cell mdl-cell--12-col -->
