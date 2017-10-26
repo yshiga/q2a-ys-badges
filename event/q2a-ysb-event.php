@@ -2,8 +2,8 @@
 
 require_once YSB_DIR . '/qa-ysb-badge.php';
 require_once YSB_DIR . '/qa-ysb-badge-master.php';
-require_once YSB_DIR . '/action/qa-ysb-awards-base.php';
-require_once YSB_DIR . '/action/qa-ysb-awards-answer.php';
+require_once YSB_DIR . '/awards/qa-ysb-awards-base.php';
+require_once YSB_DIR . '/awards/qa-ysb-awards-answer.php';
 
 class q2a_ysb_event {
 
