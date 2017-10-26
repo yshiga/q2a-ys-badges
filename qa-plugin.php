@@ -28,18 +28,6 @@ qa_register_plugin_layer('layer/q2a-ysb-layer.php','YSB layer');
 
 qa_register_plugin_phrases('lang/q2a-ysb-lang-*.php', 'ysb');
 
-
-class qa_ysb_const {
-
-	const ACTIONS = array(
-		101, // 回答に対する支持が一定数以上付与される
-		102, // 回答する
-		103, // 質問投稿の直後に回答する。
-		104, // 一定期間回答がつかない質問に回答する
-		105, // 文章量多く回答する
-	);
-}
-
 if (!function_exists('_log')) {
 	function _log( $message )
 	{ 

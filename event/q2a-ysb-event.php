@@ -1,27 +1,26 @@
 <?php
 
 require_once YSB_DIR . '/qa-ysb-badge.php';
-require_once YSB_DIR . '/action/qa-ysb-action-base.php';
-require_once YSB_DIR . '/action/qa-ysb-action-1XX.php';
+require_once YSB_DIR . '/qa-ysb-badge-master.php';
+require_once YSB_DIR . '/action/qa-ysb-awards-base.php';
+require_once YSB_DIR . '/action/qa-ysb-awards-answer.php';
 
 class q2a_ysb_event {
 
-  function process_event($event, $post_userid, $post_handle, $cookieid, $params) {
-    error_log($event . ',' . $post_userid . ', params:' . print_r($params, true));
+    function process_event($event, $post_userid, $post_handle, $cookieid, $params) {
+        _log($event);
 
-    $badges = new qa_ysb_badges();
+        $awards = array(
+            'good_answer',
+            'answer',
+            'quick_answer'
+        );
 
-    foreach(qa_ysb_const::ACTIONS as $actionid){
-      $classname = 'qa_ysb_action_' . $actionid;
-      $tmp = new $classname();
+        foreach($awards as $name){
+            $classname = 'qa_ysb_awards_' . $name;
+            $awardsclass = new $classname();
 
-      // actionテーブルを更新
-      $imcrements = $tmp->increment_by_event($event, $post_userid, $params);
-
-      // actionの更新に基づいてバッチを更新
-      foreach($imcrements as $imcrement) {
-        $badges->add_badge($imcrement['userid'], $imcrement['actionid'], $imcrement['count']);
-      }
+            $users = $awardsclass->awards_by_event($event, $post_userid, $params);
+        }
     }
-  }
 }
