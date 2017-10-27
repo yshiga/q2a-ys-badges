@@ -13,7 +13,10 @@ class q2a_ysb_event {
         $awards = array(
             'good_answer',
             'answer',
-            'quick_answer'
+            'quick_answer',
+            'savior',
+            'detail_answer',
+            'answer_with_image',
         );
 
         foreach($awards as $name){

@@ -18,6 +18,10 @@ abstract class qa_ysb_awards_answer_base extends qa_ysb_awards_base
     }
 }
 
+/*
+ * 人気の回答
+ * 回答にいいね！が３つ以上つく
+ */
 class qa_ysb_awards_good_answer extends qa_ysb_awards_answer_base {
 
     const UPVOTE_THRESHOLD = 3;
@@ -29,11 +33,8 @@ class qa_ysb_awards_good_answer extends qa_ysb_awards_answer_base {
 
     public function check_award_badge($userid, $params)
     {
-        _log('check good_answer');
-        _log($params);
-
         $sql = 'SELECT count(*) ';
-        $sql .= 'FROM ^posts WHERE upvotes > #';
+        $sql .= 'FROM ^posts WHERE upvotes >= #';
         $sql .= ' AND type="A" AND postid=#';
         $count = qa_db_read_one_value(qa_db_query_sub($sql, self::UPVOTE_THRESHOLD, $params['postid']));
         if ($count > 0) {
@@ -52,6 +53,10 @@ class qa_ysb_awards_good_answer extends qa_ysb_awards_answer_base {
     }
 }
 
+/*
+ * 回答者
+ * 回答を投稿する
+ */
 class qa_ysb_awards_answer extends qa_ysb_awards_answer_base
 {
     public function get_badgeid(){
@@ -60,6 +65,10 @@ class qa_ysb_awards_answer extends qa_ysb_awards_answer_base
 
 }
 
+/*
+ * 即当者
+ * 15分以内に回答する
+ */
 class qa_ysb_awards_quick_answer extends qa_ysb_awards_answer_base
 {
 
@@ -72,46 +81,82 @@ class qa_ysb_awards_quick_answer extends qa_ysb_awards_answer_base
 
     public function check_award_badge($userid, $params)
     {
-        _log('checke quick answer');
-
         $before15min = new DateTime('-15 min');
         
         return (int)$before15min->format('U') < (int)$params['parent']['created'];
     }
 }
 
-// class qa_ysb_action_104 extends qa_ysb_action_1XX_base {
+/*
+ * 救世主
+ * 1日以上回答がない質問に回答する
+ */
+class qa_ysb_awards_savior extends qa_ysb_awards_answer_base
+{
 
-//   const HOUR_THRESHOLD = 23;
+    public function get_badgeid()
+    {
+        return 104;
+    }
 
-//   public function get_actionid(){
-//     return 104;
-//   }
+    public function check_award_badge($userid, $params)
+    {
+        $before24hour = new DateTime('-24 hour');
+        $acount = $params['parent']['acount'];
+        $created = $params['parent']['created'];
+        if ($acount < 1 
+            && (int)$created <= (int)$before24hour->format('U')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 
-//   public function get_recalc_count($userid){
-//     $sql = 'SELECT count(*) FROM (';
-//     $sql .= 'SELECT min(TIMESTAMPDIFF(HOUR, qt.created, at.created)) as min_time, at.userid as userid ';
-//     $sql .= 'FROM qa_posts AS qt LEFT JOIN qa_posts AS at ON qt.postid = at.parentid ';
-//     $sql .= 'WHERE qt.type="Q" AND at.type="A" GROUP BY qt.postid having min_time > # ) AS tmp ';
-//     $sql .= 'WHERE tmp.userid = #';
-// 		return qa_db_read_one_value(qa_db_query_sub($sql, self::HOUR_THRESHOLD, $userid));
-//   }
-// }
+/*
+ * 詳しい回答
+ * 500文字以上の回答を投稿する
+ */
+class qa_ysb_awards_detail_answer extends qa_ysb_awards_answer_base
+{
 
+    const CHAR_LENGTH_THRESHOLD = 500;
 
-// class qa_ysb_action_105 extends qa_ysb_action_1XX_base {
+    public function get_badgeid()
+    {
+        return 105;
+    }
 
-//   const CHAR_LENGTH_THRESHOLD = 500;
+    public function check_award_badge($userid, $params)
+    {
+        $content = strip_tags($params['content']);
+        if (mb_strlen($content, "UTF-8") >= self::CHAR_LENGTH_THRESHOLD) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 
-//   public function get_actionid(){
-//     return 105;
-//   }
+/*
+ * 画像付き回答
+ * 画像付きの回答を投稿する
+ */
+class qa_ysb_awards_answer_with_image extends qa_ysb_awards_answer_base
+{
+    public function get_badgeid()
+    {
+        return 106;
+    }
 
-//   public function get_recalc_count($userid){
-//     $sql = 'SELECT count(*) FROM (';
-//     $sql .= ' SELECT CHAR_LENGTH(content) AS length, userid ';
-//     $sql .= ' FROM qa_posts WHERE type="A" AND userid = # ';
-//     $sql .= ' HAVING length > #) as tmp';
-// 		return qa_db_read_one_value(qa_db_query_sub($sql, $userid, self::CHAR_LENGTH_THRESHOLD));
-//   }
-// }
+    public function check_award_badge($userid, $params)
+    {
+        $content = $params['content'];
+        $regex = "/\[image=\"?[^\"\]]+\"?\]/isU";
+        if(preg_match($regex, $content, $matches)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

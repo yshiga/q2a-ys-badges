@@ -1,20 +1,20 @@
 <?php
 /*
-	Plugin Name: Badge
-	Plugin URI: https://github.com/yshiga/q2a-ys-badges
-	Plugin Description: provide simple badge functions
-	Plugin Version: 1.0.0
-	Plugin Date: 2017-8-9
-	Plugin Author: yshiga
-	Plugin Author URI: https://38qa.net/
-	Plugin License: GPLv2
-	Plugin Minimum Question2Answer Version: 1.5
-	Plugin Update Check URI:
+    Plugin Name: Badge
+    Plugin URI: https://github.com/yshiga/q2a-ys-badges
+    Plugin Description: provide simple badge functions
+    Plugin Version: 1.0.0
+    Plugin Date: 2017-8-9
+    Plugin Author: yshiga
+    Plugin Author URI: https://38qa.net/
+    Plugin License: GPLv2
+    Plugin Minimum Question2Answer Version: 1.5
+    Plugin Update Check URI:
 */
 
 if (!defined('QA_VERSION')) { // don't allow this page to be requested directly from browser
-	header('Location: ../../');
-	exit;
+    header('Location: ../../');
+    exit;
 }
 
 @define( YSB_DIR, dirname( __FILE__ ) );
@@ -27,15 +27,3 @@ qa_register_plugin_module('page', 'page/q2a-badge-page.php', 'qa_badge_page', 'Y
 qa_register_plugin_layer('layer/q2a-ysb-layer.php','YSB layer');
 
 qa_register_plugin_phrases('lang/q2a-ysb-lang-*.php', 'ysb');
-
-if (!function_exists('_log')) {
-	function _log( $message )
-	{ 
-		if( is_array( $message ) || is_object( $message ) ) { 
-			error_log( "DEBUG: " . print_r( $message, true ) ); 
-		} else { 
-			error_log( "DEBUG: " . $message ); 
-		}
-		return $message; 
-	}
-}
