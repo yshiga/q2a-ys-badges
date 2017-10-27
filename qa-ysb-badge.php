@@ -55,9 +55,10 @@ class qa_ysb_badge {
         $sql = 'SELECT count(*) FROM ' . self::TABLE_NAME  . ' WHERE badgeid=# AND userid=#';
         $result = qa_db_read_one_value(qa_db_query_sub($sql, $this->badgeid, $userid), true);
 
-        if($result == 0) {
+        if($result > 0) {
+            return true;
+        } else {
             return false;
         }
-        return true;
     }
 }

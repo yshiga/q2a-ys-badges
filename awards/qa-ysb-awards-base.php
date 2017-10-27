@@ -30,7 +30,6 @@ abstract class qa_ysb_awards_base
      * バッジを授与する
      *
      * @param  ターゲットのUseridの配列
-     * @return バッジを授与されたUseridの配列
      */
     public function award($userids)
     {
@@ -39,17 +38,15 @@ abstract class qa_ysb_awards_base
             $awarded_users[] = array('userid' => $userid, 'badgeid' =>  $this->get_badgeid());
             $this->save_badge($userid);
         }
-        return $awarded_users;
     }
 
     /**
      * イベントの発生時にバッジを授与
-     * @return [type] [description]
      */
     public function awards_by_event($event, $post_userid, $params)
     {
         $users = $this->get_award_target($event, $post_userid, $params);
-        return $this->award($users);
+        _log($users);
     }
 
 
@@ -57,6 +54,7 @@ abstract class qa_ysb_awards_base
     {
         $badge = new qa_ysb_badge($this->get_badgeid());
         if(!$badge->has_badge($userid)) {
+            _log('add badge');
             $badge->add_badge($userid);
         }
         $badge = null;
