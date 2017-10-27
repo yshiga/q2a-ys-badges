@@ -10,14 +10,8 @@ class q2a_ysb_event {
     function process_event($event, $post_userid, $post_handle, $cookieid, $params) {
         _log($event);
 
-        $awards = array(
-            'good_answer',
-            'answer',
-            'quick_answer',
-            'savior',
-            'detail_answer',
-            'answer_with_image',
-        );
+        $bm = new qa_ysb_badge_master();
+        $awards = $bm->find_badge_name_by_event($event);
 
         foreach($awards as $name){
             $classname = 'qa_ysb_awards_' . $name;
