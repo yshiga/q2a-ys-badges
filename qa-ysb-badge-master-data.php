@@ -60,5 +60,15 @@ return array(
         'badgeid' => 206,
         'name' => 'question_with_video',
         'event' => 'q_post'
+    ),
+    array(
+        'badgeid' => 301,
+        'name' => 'recorder',
+        'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 302,
+        'name' => 'good_blog',
+        'event' => 'qas_blog_vote_up'
     )
 );

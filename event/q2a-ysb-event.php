@@ -5,6 +5,7 @@ require_once YSB_DIR . '/qa-ysb-badge-master.php';
 require_once YSB_DIR . '/awards/qa-ysb-awards-base.php';
 require_once YSB_DIR . '/awards/qa-ysb-awards-answer.php';
 require_once YSB_DIR . '/awards/qa-ysb-awards-question.php';
+require_once YSB_DIR . '/awards/qa-ysb-awards-blog.php';
 
 class q2a_ysb_event {
 
