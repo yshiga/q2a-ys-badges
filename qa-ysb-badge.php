@@ -23,7 +23,7 @@ class qa_ysb_badge {
     * 保有しているバッチをすべて取得
     * @return [type] [description]
     */
-    public function find_by_userid($userid)
+    public static function find_by_userid($userid)
     {
         $sql = 'SELECT bt.badgeid, bt.userid, bt.show_flag, mt.name';
         $sql .= ' FROM  qa_ysb_badges AS bt LEFT JOIN qa_ysb_badge_master AS mt ON bt.badgeid = mt.badgeid ';
