@@ -61,6 +61,16 @@ class qa_ysb_badge_master
                 'badgeid' => 204,
                 'name' => 'detail_question',
                 'event' => 'q_post'
+            ),
+            array(
+                'badgeid' => 205,
+                'name' => 'question_with_image',
+                'event' => 'q_post'
+            ),
+            array(
+                'badgeid' => 206,
+                'name' => 'question_with_video',
+                'event' => 'q_post'
             )
         );
 

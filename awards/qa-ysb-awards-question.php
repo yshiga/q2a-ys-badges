@@ -128,3 +128,49 @@ class qa_ysb_awards_detail_question extends qa_ysb_awards_question_base
         }
     }
 }
+
+/*
+ * 画像付き質問
+ * 画像付きの質問を投稿する
+ */
+class qa_ysb_awards_question_with_image extends qa_ysb_awards_question_base
+{
+    public function get_badgeid()
+    {
+        return 205;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $content = $params['content'];
+        $regex = "/\[image=\"?[^\"\]]+\"?\]/isU";
+        if(preg_match($regex, $content, $matches)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+/*
+ * 動画付き質問
+ * 動画付きの質問を投稿する
+ */
+class qa_ysb_awards_question_with_video extends qa_ysb_awards_question_base
+{
+    public function get_badgeid()
+    {
+        return 206;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $content = $params['content'];
+        $regex = "/\[uploaded-video=\"?[^\"\]]+\"?\]/isU";
+        if(preg_match($regex, $content, $matches)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
