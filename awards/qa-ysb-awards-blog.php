@@ -106,52 +106,52 @@ class qa_ysb_awards_blog_with_many_comment extends qa_ysb_awards_blog_base
     }
 }
 
-// /*
-//  * 詳しい質問
-//  * 500文字以上の質問を投稿する
-//  */
-// class qa_ysb_awards_detail_question extends qa_ysb_awards_question_base
-// {
-//     const CHAR_LENGTH_THRESHOLD = 500;
+/*
+ * 詳しい飼育日誌
+ * 500文字以上の飼育日誌を投稿する
+ */
+class qa_ysb_awards_detail_blog extends qa_ysb_awards_blog_base
+{
+    const CHAR_LENGTH_THRESHOLD = 500;
 
-//     public function get_badgeid()
-//     {
-//         return 204;
-//     }
+    public function get_badgeid()
+    {
+        return 304;
+    }
 
-//     public function check_award_badge($userid, $params)
-//     {
-//         $content = strip_tags($params['content']);
-//         if (mb_strlen($content, "UTF-8") >= self::CHAR_LENGTH_THRESHOLD) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     }
-// }
+    public function check_award_badge($userid, $params)
+    {
+        $content = strip_tags($params['content']);
+        if (mb_strlen($content, "UTF-8") >= self::CHAR_LENGTH_THRESHOLD) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 
-// /*
-//  * 画像付き質問
-//  * 画像付きの質問を投稿する
-//  */
-// class qa_ysb_awards_question_with_image extends qa_ysb_awards_question_base
-// {
-//     public function get_badgeid()
-//     {
-//         return 205;
-//     }
+/*
+ * 画像付き飼育日誌
+ * 画像付きの飼育日誌を投稿する
+ */
+class qa_ysb_awards_blog_with_image extends qa_ysb_awards_blog_base
+{
+    public function get_badgeid()
+    {
+        return 305;
+    }
 
-//     public function check_award_badge($userid, $params)
-//     {
-//         $content = $params['content'];
-//         $regex = "/\[image=\"?[^\"\]]+\"?\]/isU";
-//         if(preg_match($regex, $content, $matches)) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     }
-// }
+    public function check_award_badge($userid, $params)
+    {
+        $content = $params['content'];
+        $regex = "/\[image=\"?[^\"\]]+\"?\]/isU";
+        if(preg_match($regex, $content, $matches)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 
 // /*
 //  * 動画付き質問
