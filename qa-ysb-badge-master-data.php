@@ -70,5 +70,10 @@ return array(
         'badgeid' => 302,
         'name' => 'good_blog',
         'event' => 'qas_blog_vote_up'
+    ),
+    array(
+        'badgeid' => 303,
+        'name' => 'blog_with_many_comment',
+        'event' => 'qas_blog_c_post'
     )
 );

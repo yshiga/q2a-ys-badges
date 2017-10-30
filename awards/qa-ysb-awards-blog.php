@@ -69,41 +69,42 @@ class qa_ysb_awards_good_blog extends qa_ysb_awards_blog_base
     }
 }
 
-// /*
-//  * 回答多数
-//  * 回答が5件以上寄せられる
-//  */
-// class qa_ysb_awards_with_many_answer extends qa_ysb_awards_question_base
-// {
-//     const ANSWER_THRESHOLD = 5;
+/*
+ * 反響多数
+ * コメントが5件以上投稿される
+ */
+class qa_ysb_awards_blog_with_many_comment extends qa_ysb_awards_blog_base
+{
+    const COMMENT_THRESHOLD = 5;
 
-//     public function get_badgeid()
-//     {
-//         return 203;
-//     }
+    public function get_badgeid()
+    {
+        return 303;
+    }
 
-//     public function get_award_target($event, $post_userid, $params)
-//     {
-//         if ($event == 'a_post' && $this->check_award_badge($post_userid, $params)) {
-//             return array($params['parent']['userid']);
-//         }
-//         return array();
-//     }
+    public function get_award_target($event, $post_userid, $params)
+    {
+        if ($event == 'qas_blog_c_post' && $this->check_award_badge($post_userid, $params)) {
+            return array($params['parent']['userid']);
+        }
+        return array();
+    }
 
-//     public function check_award_badge($userid, $params)
-//     {
-//         $sql = 'SELECT count(*)';
-//         $sql .= ' FROM ^posts WHERE acount >= #';
-//         $sql .= ' AND type="Q" AND postid = #';
-//         $count = qa_db_read_one_value(qa_db_query_sub($sql, self::ANSWER_THRESHOLD, $params['parent']['postid']));
+    public function check_award_badge($userid, $params)
+    {
+        $sql = 'SELECT count(c.postid)';
+        $sql .= ' FROM ^blogs b';
+        $sql .= " LEFT JOIN ^blogs c ON c.parentid = b.postid and c.type = 'C'";
+        $sql .= "WHERE b.type = 'B' and b.postid = #";
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $params['parent']['postid']));
 
-//         if ($count > 0) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     }
-// }
+        if ($count >= self::COMMENT_THRESHOLD) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 
 // /*
 //  * 詳しい質問
