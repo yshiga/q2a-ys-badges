@@ -153,25 +153,25 @@ class qa_ysb_awards_blog_with_image extends qa_ysb_awards_blog_base
     }
 }
 
-// /*
-//  * 動画付き質問
-//  * 動画付きの質問を投稿する
-//  */
-// class qa_ysb_awards_question_with_video extends qa_ysb_awards_question_base
-// {
-//     public function get_badgeid()
-//     {
-//         return 206;
-//     }
+/*
+ * 動画付き飼育日誌
+ * 動画付きの飼育日誌を投稿する
+ */
+class qa_ysb_awards_blog_with_video extends qa_ysb_awards_blog_base
+{
+    public function get_badgeid()
+    {
+        return 306;
+    }
 
-//     public function check_award_badge($userid, $params)
-//     {
-//         $content = $params['content'];
-//         $regex = "/\[uploaded-video=\"?[^\"\]]+\"?\]/isU";
-//         if(preg_match($regex, $content, $matches)) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     }
-// }
+    public function check_award_badge($userid, $params)
+    {
+        $content = $params['content'];
+        $regex = "/\[uploaded-video=\"?[^\"\]]+\"?\]/isU";
+        if(preg_match($regex, $content, $matches)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

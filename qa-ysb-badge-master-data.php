@@ -85,5 +85,10 @@ return array(
         'badgeid' => 305,
         'name' => 'blog_with_image',
         'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 306,
+        'name' => 'blog_with_video',
+        'event' => 'qas_blog_b_post'
     )
 );
