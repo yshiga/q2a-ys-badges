@@ -42,7 +42,7 @@ class qa_ysb_badge {
             'INSERT INTO ' . self::TABLE_NAME .
             ' ( badgeid, userid, show_flag, created, updated ) '.
             ' VALUES (#, #, #, NOW(), NOW())',
-            $this->badgeid, $userid, 0 
+            $this->badgeid, $userid, $this->show_flag 
         );
         error_log('badge was added, badgeid:' . $this->badgeid . ', userid:' . $userid);
     }

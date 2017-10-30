@@ -33,9 +33,7 @@ abstract class qa_ysb_awards_base
      */
     public function award($userids)
     {
-        $awarded_users = array();
         foreach($userids as $userid) {
-            $awarded_users[] = array('userid' => $userid, 'badgeid' =>  $this->get_badgeid());
             $this->save_badge($userid);
         }
     }
@@ -46,7 +44,7 @@ abstract class qa_ysb_awards_base
     public function awards_by_event($event, $post_userid, $params)
     {
         $users = $this->get_award_target($event, $post_userid, $params);
-        _log($users);
+        $this->award($users);
     }
 
 
@@ -54,7 +52,6 @@ abstract class qa_ysb_awards_base
     {
         $badge = new qa_ysb_badge($this->get_badgeid());
         if(!$badge->has_badge($userid)) {
-            _log('add badge');
             $badge->add_badge($userid);
         }
         $badge = null;

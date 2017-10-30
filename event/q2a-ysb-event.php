@@ -16,7 +16,6 @@ class q2a_ysb_event {
         _log($awards);
 
         foreach($awards as $name){
-            _log($name);
             $classname = 'qa_ysb_awards_' . $name;
             $awardsclass = new $classname();
 

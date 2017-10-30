@@ -15,7 +15,7 @@ class qa_ysb_badge_master
             array(
                 'badgeid' => 101,
                 'name' => 'good_answer',
-                'event' => 'a_vote'
+                'event' => 'a_vote_up'
             ),
             array(
                 'badgeid' => 102,
@@ -45,6 +45,21 @@ class qa_ysb_badge_master
             array(
                 'badgeid' => 201,
                 'name' => 'questioner',
+                'event' => 'q_post'
+            ),
+            array(
+                'badgeid' => 202,
+                'name' => 'good_question',
+                'event' => 'q_vote_up'
+            ),
+            array(
+                'badgeid' => 203,
+                'name' => 'with_many_answer',
+                'event' => 'a_post'
+            ),
+            array(
+                'badgeid' => 204,
+                'name' => 'detail_question',
                 'event' => 'q_post'
             )
         );
