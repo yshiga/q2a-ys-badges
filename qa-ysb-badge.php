@@ -77,7 +77,9 @@ class qa_ysb_badge {
 
     public function update_badge($userid)
     {
-        $sql = '';
-        qa_db_query_sub($sql, $this->badgeid, $userid, $this->show_flag);
+        $sql = 'UPDATE '.self::TABLE_NAME;
+        $sql .= ' SET show_flag = #, updated = NOW()';
+        $sql .= ' WHERE badgeid = # AND userid = #';
+        qa_db_query_sub($sql, $this->show_flag, $this->badgeid, $userid);
     }
 }

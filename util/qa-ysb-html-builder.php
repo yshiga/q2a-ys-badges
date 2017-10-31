@@ -15,6 +15,7 @@ class qa_ysb_html_builder {
     public static function output_badge_dialog($badgeids)
     {
         $url = qa_opt('site_url').'qa-plugin/q2a-ys-badges/img/';
+        $handle = qa_get_logged_in_handle();
         $badgeobj = self::get_badges($badgeids);
         include YSB_DIR . '/html/badge-dialog.html';
     }

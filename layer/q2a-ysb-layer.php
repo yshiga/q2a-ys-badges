@@ -23,7 +23,19 @@ class qa_html_theme_layer extends qa_html_theme_base
             $badgeids = array_column($badges, 'badgeid');
             if(count($badgeids) > 0) {
                 qa_ysb_html_builder::output_badge_dialog($badgeids);
+                // $this->update_badges_flag($badgeids);
             }
+        }
+    }
+
+    private function update_badges_flag($badgeids)
+    {
+        $userid = qa_get_logged_in_userid();
+        foreach($badgeids as $id) {
+            // ここでフラグをたてる
+            $badge = new qa_ysb_badge($id);
+            $badge->set_show_flag(1);
+            $badge->update_badge($userid);
         }
     }
 }
