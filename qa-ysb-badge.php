@@ -20,14 +20,26 @@ class qa_ysb_badge {
     }
 
     /**
-    * 保有しているバッチをすべて取得
-    * @return [type] [description]
+    * userid でバッジの取得状況を取得する
+    * @return [array] [badees]
     */
     public static function find_by_userid($userid)
     {
         $sql = 'SELECT bm.badgeid, CASE WHEN bd.userid IS NULL THEN 0 ELSE 1 END as hasbadge';
-        $sql .= ' FROM  qa_ysb_badge_master AS bm LEFT JOIN qa_ysb_badges AS bd ON bm.badgeid = bd.badgeid ';
+        $sql .= ' FROM  ^ysb_badge_master AS bm LEFT JOIN ^ysb_badges AS bd ON bm.badgeid = bd.badgeid ';
         $sql .= ' AND bd.userid = #';
+        $sql .= ' ORDER BY badgeid';
+        return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid));
+    }
+
+    /*
+     * useridでまだダイアログを表示していないバッジを取得
+     */
+    public static function find_by_not_noticed_badges($userid)
+    {
+        $sql = 'SELECT bd.badgeid';
+        $sql .= ' FROM  ^ysb_badges AS bd';
+        $sql .= ' WHERE bd.userid = # AND bd.show_flag = 0';
         $sql .= ' ORDER BY badgeid';
         return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid));
     }
@@ -61,5 +73,11 @@ class qa_ysb_badge {
         } else {
             return false;
         }
+    }
+
+    public function update_badge($userid)
+    {
+        $sql = '';
+        qa_db_query_sub($sql, $this->badgeid, $userid, $this->show_flag);
     }
 }
