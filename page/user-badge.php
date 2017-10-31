@@ -11,10 +11,11 @@
     $userid = qa_handle_to_userid($handle);
 
     $badges = qa_ysb_badge::find_by_userid($userid);
-    _log($badges);
+
 
     qa_set_template('user-badge');
     $qa_content = qa_content_prepare(true);
     $qa_content['title'] = qa_lang('ysb/page_title');
+    $qa_content['badges'] = array_column($badges, 'hasbadge', 'badgeid');
 
     return $qa_content;

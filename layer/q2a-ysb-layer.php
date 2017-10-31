@@ -1,4 +1,7 @@
 <?php
+
+require_once YSB_DIR.'/util/qa-ysb-html-builder.php';
+
 class qa_html_theme_layer extends qa_html_theme_base
 {
     public function main()
@@ -7,16 +10,8 @@ class qa_html_theme_layer extends qa_html_theme_base
             $html = file_get_contents(YSB_DIR . '/html/badges.html');
             $this->output($html);
         } elseif($this->template == 'user-badge'){
-            $tmpl = file_get_contents(YSB_DIR . '/html/user-badge.html');
-            $class = 'mdl-typography--display-1-color-contrast';
-            $class2 = 'mdl-typography--body-1-color-contrast mdl-color-text--grey';
-            $params = array(
-                '^url' => qa_opt('site_url').'qa-plugin/q2a-ys-badges/img/',
-                '^img105' => $class,
-                '^text105' => $class2,
-            );
-            $html = strtr($tmpl, $params);
-            $this->output($html);
+            $badges = $this->content['badges'];
+            qa_ysb_html_builder::output_user_badge($badges);
         } else {
             parent::main();
         }

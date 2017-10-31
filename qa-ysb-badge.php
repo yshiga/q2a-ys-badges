@@ -25,9 +25,10 @@ class qa_ysb_badge {
     */
     public static function find_by_userid($userid)
     {
-        $sql = 'SELECT bt.badgeid, bt.userid, bt.show_flag, mt.name';
-        $sql .= ' FROM  qa_ysb_badges AS bt LEFT JOIN qa_ysb_badge_master AS mt ON bt.badgeid = mt.badgeid ';
-        $sql .= ' WHERE bt.userid=# ';
+        $sql = 'SELECT bm.badgeid, CASE WHEN bd.userid IS NULL THEN 0 ELSE 1 END as hasbadge';
+        $sql .= ' FROM  qa_ysb_badge_master AS bm LEFT JOIN qa_ysb_badges AS bd ON bm.badgeid = bd.badgeid ';
+        $sql .= ' AND bd.userid = #';
+        $sql .= ' ORDER BY badgeid';
         return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid));
     }
 

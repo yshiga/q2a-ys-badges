@@ -8,35 +8,108 @@
     </div><!-- .mdl-grid -->
     <div class="mdl-grid">
       <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
-        <img src="^urlbadge-answer-01.svg" alt="回答者">
-        <h3 class="mdl-typography--subhead margin--bottom-16px">回答者</h3><!-- .mdl-typography--menu -->
-        <p class="mdl-typography--body-1 margin--bottom-0">回答を投稿する</p><!-- .mdl-typography--caption -->
+        <img class="<?php echo $badges['102'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-answer-01.svg" alt="回答者">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['102'] ? '' : $headclass; ?>">回答者</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['102'] ? $txtclass : $txtclass2; ?> margin--bottom-0">回答を投稿する</p><!-- .mdl-typography--caption -->
       </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
       <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
-        <img src="^urlbadge-good-answer-01.svg" alt="良い回答">
-        <h3 class="mdl-typography--subhead margin--bottom-16px">良い回答</h3><!-- .mdl-typography--menu -->
-        <p class="mdl-typography--body-1 margin--bottom-0">いいね！が3つ以上つく</p><!-- .mdl-typography--caption -->
+        <img class="<?php echo $badges['101'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-good-answer-01.svg" alt="良い回答">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['101'] ? '' : $headclass; ?>">良い回答</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['101'] ? $txtclass : $txtclass2; ?> margin--bottom-0">いいね！が3つ以上つく</p><!-- .mdl-typography--caption -->
       </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
       <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
-        <img src="^urlbadge-quick-answer-01.svg" alt="即答者">
-        <h3 class="mdl-typography--subhead margin--bottom-16px">即答者</h3><!-- .mdl-typography--menu -->
-        <p class="mdl-typography--body-1 margin--bottom-0">質問投稿の15分以内に<br class="mdl-cell--hide-phone">回答する。</p><!-- .mdl-typography--caption -->
+        <img class="<?php echo $badges['103'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-quick-answer-01.svg" alt="即答者">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['103'] ? '' : $headclass; ?>">即答者</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['103'] ? $txtclass : $txtclass2; ?> margin--bottom-0">質問投稿の15分以内に<br class="mdl-cell--hide-phone">回答する。</p><!-- .mdl-typography--caption -->
       </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
       <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
-        <img src="^urlbadge-savior-01.svg" alt="救世主">
-        <h3 class="mdl-typography--subhead margin--bottom-16px">救世主</h3><!-- .mdl-typography--menu -->
-        <p class="mdl-typography--body-1 margin--bottom-0">24時間以上回答がない<br class="mdl-cell--hide-phone">質問に回答する</p><!-- .mdl-typography--caption -->
+        <img class="<?php echo $badges['104'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-savior-01.svg" alt="救世主">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['104'] ? '' : $headclass; ?>">救世主</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['104'] ? $txtclass : $txtclass2; ?> margin--bottom-0">24時間以上回答がない<br class="mdl-cell--hide-phone">質問に回答する</p><!-- .mdl-typography--caption -->
       </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
       <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
-        <img class="^img105" src="^urlbadge-detail-answer-01.svg" alt="詳しい回答">
-        <h3 class="mdl-typography--subhead margin--bottom-16px mdl-typography--display-1-color-contrast">詳しい回答</h3><!-- .mdl-typography--menu -->
-        <p class="^text105 margin--bottom-0">500文字以上の回答を<br class="mdl-cell--hide-phone">投稿する。</p><!-- .mdl-typography--caption -->
+        <img class="<?php echo $badges['105'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-detail-answer-01.svg" alt="詳しい回答">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['105'] ? '' : $headclass; ?>">詳しい回答</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['105'] ? $txtclas : $txtclass2; ?> margin--bottom-0">500文字以上の回答を<br class="mdl-cell--hide-phone">投稿する。</p><!-- .mdl-typography--caption -->
       </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
       <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
-        <img src="^urlbadge-answer-01.svg" alt="画像付き回答">
-        <h3 class="mdl-typography--subhead margin--bottom-16px">画像付き回答</h3><!-- .mdl-typography--menu -->
-        <p class="mdl-typography--body-1 margin--bottom-0">画像付きの回答を投稿する</p><!-- .mdl-typography--caption -->
+        <img class="<?php echo $badges['106'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-answer-01.svg" alt="画像付き回答">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['106'] ? '' : $headclass; ?>">画像付き回答</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['106'] ? $txtclass : $txtclass2; ?> mdl-typography--body-1 margin--bottom-0">画像付きの回答を投稿する</p><!-- .mdl-typography--caption -->
       </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
     </div>
+
+    <div class="mdl-grid">
+      <h3 class="mdl-typography--title mdl-cell--12-col mdl-cell margin--bottom-0">質問バッジ</h2><!-- .mdl-typography--subhead -->
+    </div><!-- .mdl-grid -->
+    <div class="mdl-grid">
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['201'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-answer-01.svg" alt="質問者">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['201'] ? '' : $headclass; ?>">質問者</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['201'] ? $txtclass : $txtclass2; ?> margin--bottom-0">質問を投稿する</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['202'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-good-answer-01.svg" alt="良い質問">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['202'] ? '' : $headclass; ?>">良い質問</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['202'] ? $txtclass : $txtclass2; ?> margin--bottom-0">いいね！が3つ以上つく</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['203'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-quick-answer-01.svg" alt="回答多数">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['203'] ? '' : $headclass; ?>">回答多数</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['203'] ? $txtclass : $txtclass2; ?> margin--bottom-0">回答が5件以上寄せられる</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['204'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-savior-01.svg" alt="詳しい質問">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['204'] ? '' : $headclass; ?>">詳しい質問</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['204'] ? $txtclass : $txtclass2; ?> margin--bottom-0">500文字以上の質問を<br class="mdl-cell--hide-phone">投稿する</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['205'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-detail-answer-01.svg" alt="画像つき質問">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['205'] ? '' : $headclass; ?>">画像つき質問</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['205'] ? $txtclas : $txtclass2; ?> margin--bottom-0">画像つきの質問を投稿する。</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['206'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-answer-01.svg" alt="動画つき質問">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['206'] ? '' : $headclass; ?>">動画つき質問</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['206'] ? $txtclass : $txtclass2; ?> mdl-typography--body-1 margin--bottom-0">動画付きの質問を投稿する</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+    </div>
+
+    <div class="mdl-grid">
+      <h3 class="mdl-typography--title mdl-cell--12-col mdl-cell margin--bottom-0">飼育日誌バッジ</h2><!-- .mdl-typography--subhead -->
+    </div><!-- .mdl-grid -->
+    <div class="mdl-grid">
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['301'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-answer-01.svg" alt="記録者">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['301'] ? '' : $headclass; ?>">記録者</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['301'] ? $txtclass : $txtclass2; ?> margin--bottom-0">飼育日誌を投稿する</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['302'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-good-answer-01.svg" alt="人気の飼育日誌">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['302'] ? '' : $headclass; ?>">人気の飼育日誌</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['302'] ? $txtclass : $txtclass2; ?> margin--bottom-0">いいね！が3つ以上つく</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['303'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-quick-answer-01.svg" alt="反響多数">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['303'] ? '' : $headclass; ?>">反響多数</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['303'] ? $txtclass : $txtclass2; ?> margin--bottom-0">コメントが5件以上寄せられる</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['304'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-savior-01.svg" alt="詳しい飼育日誌">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['304'] ? '' : $headclass; ?>">詳しい飼育日誌</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['304'] ? $txtclass : $txtclass2; ?> margin--bottom-0">500文字以上の飼育日誌を<br class="mdl-cell--hide-phone">投稿する</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['305'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-detail-answer-01.svg" alt="画像つき飼育日誌">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['305'] ? '' : $headclass; ?>">画像つき飼育日誌</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['305'] ? $txtclas : $txtclass2; ?> margin--bottom-0">画像つきの飼育日誌を投稿する。</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+      <div class="mdl-card mdl-cell mdl-cell--4-col mdl-cell--2-col-phone mdl-shadow--2dp padding--16px mdl-typography--text-center">
+        <img class="<?php echo $badges['306'] ? '' : $imgclass; ?>" src="<?php echo $url; ?>badge-answer-01.svg" alt="動画つき質問">
+        <h3 class="mdl-typography--subhead margin--bottom-16px <?php echo $badges['306'] ? '' : $headclass; ?>">動画つき飼育日誌</h3><!-- .mdl-typography--menu -->
+        <p class="<?php echo $badges['306'] ? $txtclass : $txtclass2; ?> mdl-typography--body-1 margin--bottom-0">動画付きの飼育日誌を投稿する</p><!-- .mdl-typography--caption -->
+      </div><!-- .mdl-card mdl-cell mdl-cell--4-col -->
+    </div>
+
   </div>
 </div>
