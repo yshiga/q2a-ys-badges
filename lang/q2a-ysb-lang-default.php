@@ -44,5 +44,14 @@ return array(
   'badge_head_306' => '動画つき飼育日誌',
   'badge_body_306' => '動画(Youtube除く)付きの<br class="mdl-cell--hide-phone">飼育日誌を投稿する',
 
+  'badge_dialog_msg_answer' => '回答いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
+  'badge_dialog_msg_question' => '質問いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
+  'badge_dialog_msg_blog' => '飼育日誌投稿いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
+  'badge_title' => '^バッジを取得しました',
+
+  'button_close' => '閉じる',
+  'button_show' => 'バッジ一覧ページを見る',
+
+
 );
 
