@@ -15,7 +15,7 @@ class qa_html_theme_layer extends qa_html_theme_base
         }
     }
 
-    public function body_content()
+    public function notices()
     {
         if (qa_is_logged_in()) {
             $badges = qa_ysb_badge::find_by_not_noticed_badges(qa_get_logged_in_userid());
@@ -25,7 +25,7 @@ class qa_html_theme_layer extends qa_html_theme_base
                 $this->update_badges_flag($badgeids);
             }
         }
-        parent::body_content();
+        parent::notices();
     }
 
     /*
