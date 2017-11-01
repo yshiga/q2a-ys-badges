@@ -28,7 +28,7 @@ class qa_ysb_awards_good_answer extends qa_ysb_awards_answer_base {
 
     public function get_badgeid()
     {
-        return 101;
+        return 102;
     }
 
     public function check_award_badge($userid, $params)
@@ -60,7 +60,7 @@ class qa_ysb_awards_good_answer extends qa_ysb_awards_answer_base {
 class qa_ysb_awards_answer extends qa_ysb_awards_answer_base
 {
     public function get_badgeid(){
-        return 102;
+        return 101;
     }
 
 }

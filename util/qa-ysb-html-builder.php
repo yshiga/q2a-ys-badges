@@ -3,9 +3,12 @@
 class qa_ysb_html_builder {
     const IMAGE_BASE = 'qa-plugin/q2a-ys-badges/img/';
 
+    /*
+     * ユーザーバッジ一覧出力
+     */
     public static function output_user_badge($badges)
     {
-        $url = qa_opt('site_url').self::IMAGE_BASE;
+        $imgurl = qa_opt('site_url').self::IMAGE_BASE.'badge_';
         $imgclass = 'mdl-typography--display-1-color-contrast';
         $txtclass = 'mdl-typography--body-1';
         $txtclass2 = 'mdl-typography--body-1-color-contrast mdl-color-text--grey';
@@ -13,15 +16,21 @@ class qa_ysb_html_builder {
         include YSB_DIR . '/html/user-badge.html';
     }
 
+    /*
+     * バッジのダイアログ出力
+     */
     public static function output_badge_dialog($badgeids)
     {
-        $url = qa_opt('site_url').'qa-plugin/q2a-ys-badges/img/';
+        $url = qa_opt('site_url').self::IMAGE_BASE;
         $handle = qa_get_logged_in_handle();
         $badgesurl = qa_path('user/'.$handle.'/badge',null,qa_opt('site_url'));
         $badgeobj = self::get_badges($badgeids);
         include YSB_DIR . '/html/badge-dialog.html';
     }
 
+    /*
+     * バッジ情報取得
+     */
     private static function get_badges($ids)
     {
         $handle = qa_get_logged_in_handle();
@@ -38,6 +47,9 @@ class qa_ysb_html_builder {
         return $badges;
     }
 
+    /*
+     * ダイアログのメッセージID取得
+     */
     private static function get_msgid($id)
     {
         $msgid = '';

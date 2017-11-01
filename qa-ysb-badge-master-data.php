@@ -3,13 +3,13 @@
 return array(
     array(
         'badgeid' => 101,
-        'name' => 'good_answer',
-        'event' => 'a_vote_up'
+        'name' => 'answer',
+        'event' => 'a_post'
     ),
     array(
         'badgeid' => 102,
-        'name' => 'answer',
-        'event' => 'a_post'
+        'name' => 'good_answer',
+        'event' => 'q_vote_up'
     ),
     array(
         'badgeid' => 103,

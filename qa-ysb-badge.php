@@ -75,6 +75,9 @@ class qa_ysb_badge {
         }
     }
 
+    /*
+     * バッジのshow_flagを更新
+     */
     public function update_badge($userid)
     {
         $sql = 'UPDATE '.self::TABLE_NAME;
