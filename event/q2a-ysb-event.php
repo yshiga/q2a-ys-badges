@@ -10,11 +10,9 @@ require_once YSB_DIR . '/awards/qa-ysb-awards-blog.php';
 class q2a_ysb_event {
 
     function process_event($event, $post_userid, $post_handle, $cookieid, $params) {
-        _log($event);
 
         $bm = new qa_ysb_badge_master();
         $awards = $bm->find_badge_name_by_event($event);
-        _log($awards);
 
         foreach($awards as $name){
             $classname = 'qa_ysb_awards_' . $name;
