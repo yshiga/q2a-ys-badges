@@ -50,7 +50,7 @@ return array(
   'badge_title' => '^バッジを取得しました',
 
   'button_close' => '閉じる',
-  'button_show' => 'バッジ一覧ページを見る',
+  'button_show' => 'バッジ一覧',
 
 
 );
