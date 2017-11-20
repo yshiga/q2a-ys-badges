@@ -9,7 +9,7 @@ class qa_ysb_html_builder {
     public static function output_user_badge($badges)
     {
         $imgurl = qa_opt('site_url').self::IMAGE_BASE.'badge_';
-        $imgclass = 'mdl-typography--display-1-color-contrast';
+        $imgclass = 'no-badge-icon';
         $txtclass = 'mdl-typography--body-1';
         $txtclass2 = 'mdl-typography--body-1-color-contrast mdl-color-text--grey';
         $headclass = 'mdl-typography--display-1-color-contrast';
