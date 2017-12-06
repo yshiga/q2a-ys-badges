@@ -55,6 +55,12 @@ return array(
   'badge_body_305' => '画像付きの飼育日誌を<br class="mdl-cell--hide-phone">投稿する',
   'badge_head_306' => '動画つき飼育日誌',
   'badge_body_306' => '動画(Youtube除く)付きの<br class="mdl-cell--hide-phone">飼育日誌を投稿する',
+  'badge_head_307' => '継続力',
+  'badge_body_307' => '3件の飼育日誌を投稿する',
+  'badge_head_308' => 'マメな記録者',
+  'badge_body_308' => '10件の飼育日誌を投稿する',
+  'badge_head_309' => '記録の達人',
+  'badge_body_309' => '30件の飼育日誌を投稿する',
 
   'badge_dialog_msg_answer' => '回答いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
   'badge_dialog_msg_question' => '質問いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
