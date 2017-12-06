@@ -196,7 +196,7 @@ class qa_ysb_awards_full_of_curiosity extends qa_ysb_awards_question_base
         $sql.= " AND userid=#";
 
         $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
-        if ($count >= self::ANSWER_COUNT) {
+        if ($count >= self::QUESTION_COUNT) {
             return true;
         } else {
             return false;
@@ -226,7 +226,7 @@ class qa_ysb_awards_hardworking extends qa_ysb_awards_question_base
         $sql.= " AND userid=#";
 
         $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
-        if ($count >= self::ANSWER_COUNT) {
+        if ($count >= self::QUESTION_COUNT) {
             return true;
         } else {
             return false;
@@ -256,7 +256,7 @@ class qa_ysb_awards_question_master extends qa_ysb_awards_question_base
         $sql.= " AND userid=#";
 
         $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
-        if ($count >= self::ANSWER_COUNT) {
+        if ($count >= self::QUESTION_COUNT) {
             return true;
         } else {
             return false;
