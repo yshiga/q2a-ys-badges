@@ -77,6 +77,21 @@ return array(
         'event' => 'q_post'
     ),
     array(
+        'badgeid' => 207,
+        'name' => 'full_of_curiosity',
+        'event' => 'q_post'
+    ),
+    array(
+        'badgeid' => 208,
+        'name' => 'hardworking',
+        'event' => 'q_post'
+    ),
+    array(
+        'badgeid' => 209,
+        'name' => 'question_master',
+        'event' => 'q_post'
+    ),
+    array(
         'badgeid' => 301,
         'name' => 'recorder',
         'event' => 'qas_blog_b_post'

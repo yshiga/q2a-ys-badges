@@ -174,3 +174,93 @@ class qa_ysb_awards_question_with_video extends qa_ysb_awards_question_base
         }
     }
 }
+
+/*
+ * 好奇心旺盛
+ * 3件質問する
+ */
+class qa_ysb_awards_full_of_curiosity extends qa_ysb_awards_question_base
+{
+    const QUESTION_COUNT = 3;
+
+    public function get_badgeid()
+    {
+        return 207;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^posts";
+        $sql.= " WHERE type='Q'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::ANSWER_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+}
+
+/*
+ * 勉強熱心
+ * 10件質問する
+ */
+class qa_ysb_awards_hardworking extends qa_ysb_awards_question_base
+{
+    const QUESTION_COUNT = 10;
+
+    public function get_badgeid()
+    {
+        return 208;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^posts";
+        $sql.= " WHERE type='Q'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::ANSWER_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+}
+
+/*
+ * 質問の達人
+ * 30件質問する
+ */
+class qa_ysb_awards_question_master extends qa_ysb_awards_question_base
+{
+    const QUESTION_COUNT = 30;
+
+    public function get_badgeid()
+    {
+        return 209;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^posts";
+        $sql.= " WHERE type='Q'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::ANSWER_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+}

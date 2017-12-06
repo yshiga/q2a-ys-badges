@@ -36,6 +36,12 @@ return array(
   'badge_body_205' => '画像付きの質問を<br class="mdl-cell--hide-phone">投稿する',
   'badge_head_206' => '動画つき質問',
   'badge_body_206' => '動画(Youtube除く)付きの<br class="mdl-cell--hide-phone">質問を投稿する',
+  'badge_head_207' => '好奇心旺盛',
+  'badge_body_207' => '3件回答する',
+  'badge_head_208' => '勉強熱心',
+  'badge_body_208' => '10件回答する',
+  'badge_head_209' => '質問の達人',
+  'badge_body_209' => '30件回答する',
 
   'badge_head_301' => '記録者',
   'badge_body_301' => '飼育日誌を投稿する',
