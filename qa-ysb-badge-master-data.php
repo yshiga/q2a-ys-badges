@@ -32,6 +32,21 @@ return array(
         'event' => 'a_post'
     ),
     array(
+        'badgeid' => 107,
+        'name' => 'kind',
+        'event' => 'a_post'
+    ),
+    array(
+        'badgeid' => 108,
+        'name' => 'help_others',
+        'event' => 'a_post'
+    ),
+    array(
+        'badgeid' => 109,
+        'name' => 'hero',
+        'event' => 'a_post'
+    ),
+    array(
         'badgeid' => 201,
         'name' => 'questioner',
         'event' => 'q_post'
@@ -59,6 +74,21 @@ return array(
     array(
         'badgeid' => 206,
         'name' => 'question_with_video',
+        'event' => 'q_post'
+    ),
+    array(
+        'badgeid' => 207,
+        'name' => 'full_of_curiosity',
+        'event' => 'q_post'
+    ),
+    array(
+        'badgeid' => 208,
+        'name' => 'hardworking',
+        'event' => 'q_post'
+    ),
+    array(
+        'badgeid' => 209,
+        'name' => 'question_master',
         'event' => 'q_post'
     ),
     array(
@@ -90,5 +120,21 @@ return array(
         'badgeid' => 306,
         'name' => 'blog_with_video',
         'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 307,
+        'name' => 'blog_continuing',
+        'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 308,
+        'name' => 'diligent_recorder',
+        'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 309,
+        'name' => 'recording_expert',
+        'event' => 'qas_blog_b_post'
     )
+
 );

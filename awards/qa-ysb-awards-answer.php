@@ -160,3 +160,93 @@ class qa_ysb_awards_answer_with_image extends qa_ysb_awards_answer_base
         }
     }
 }
+
+/*
+ * 親切
+ * 5件回答する
+ */
+class qa_ysb_awards_kind extends qa_ysb_awards_answer_base
+{
+    const ANSWER_COUNT = 5;
+
+    public function get_badgeid()
+    {
+        return 107;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^posts";
+        $sql.= " WHERE type='A'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::ANSWER_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+}
+
+/*
+ * 人助け
+ * 15件回答する
+ */
+class qa_ysb_awards_help_others extends qa_ysb_awards_answer_base
+{
+    const ANSWER_COUNT = 15;
+
+    public function get_badgeid()
+    {
+        return 108;
+    }
+
+    public function check_award_badge($userid, $params = null)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^posts";
+        $sql.= " WHERE type='A'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::ANSWER_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+}
+
+/*
+ * ヒーロー
+ * 50件回答する
+ */
+class qa_ysb_awards_hero extends qa_ysb_awards_answer_base
+{
+    const ANSWER_COUNT = 50;
+
+    public function get_badgeid()
+    {
+        return 109;
+    }
+
+    public function check_award_badge($userid, $params = null)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^posts";
+        $sql.= " WHERE type='A'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::ANSWER_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+}

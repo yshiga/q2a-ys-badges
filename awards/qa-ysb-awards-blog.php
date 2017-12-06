@@ -175,3 +175,90 @@ class qa_ysb_awards_blog_with_video extends qa_ysb_awards_blog_base
         }
     }
 }
+
+/*
+ * 継続力
+ * 3件の飼育日誌を投稿する
+ */
+class qa_ysb_awards_blog_continuing extends qa_ysb_awards_blog_base
+{
+    const BLOG_COUNT = 3;
+
+    public function get_badgeid()
+    {
+        return 307;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^blogs";
+        $sql.= " WHERE type='B'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::BLOG_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+/*
+ * マメな記録者
+ * 10件の飼育日誌を投稿する
+ */
+class qa_ysb_awards_diligent_recorder extends qa_ysb_awards_blog_base
+{
+    const BLOG_COUNT = 10;
+
+    public function get_badgeid()
+    {
+        return 308;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^blogs";
+        $sql.= " WHERE type='B'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::BLOG_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+/*
+ * 記録の達人
+ * 30件の飼育日誌を投稿する
+ */
+class qa_ysb_awards_recording_expert extends qa_ysb_awards_blog_base
+{
+    const BLOG_COUNT = 30;
+
+    public function get_badgeid()
+    {
+        return 309;
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = "SELECT count(*)";
+        $sql.= " FROM ^blogs";
+        $sql.= " WHERE type='B'";
+        $sql.= " AND userid=#";
+
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+        if ($count >= self::BLOG_COUNT) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
