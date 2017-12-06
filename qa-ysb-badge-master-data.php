@@ -120,5 +120,21 @@ return array(
         'badgeid' => 306,
         'name' => 'blog_with_video',
         'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 307,
+        'name' => 'blog_continuing',
+        'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 308,
+        'name' => 'diligent_recorder',
+        'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 309,
+        'name' => 'recording_expert',
+        'event' => 'qas_blog_b_post'
     )
+
 );
