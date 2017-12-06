@@ -17,6 +17,12 @@ return array(
   'badge_body_105' => '500文字以上の回答を<br class="mdl-cell--hide-phone">投稿する',
   'badge_head_106' => '画像つき回答',
   'badge_body_106' => '画像付きの回答を<br class="mdl-cell--hide-phone">投稿する',
+  'badge_head_107' => '親切',
+  'badge_body_107' => '5件回答する',
+  'badge_head_108' => '人助け',
+  'badge_body_108' => '15件回答する',
+  'badge_head_109' => 'ヒーロー',
+  'badge_body_109' => '50件回答する',
 
   'badge_head_201' => '質問者',
   'badge_body_201' => '質問を投稿する',

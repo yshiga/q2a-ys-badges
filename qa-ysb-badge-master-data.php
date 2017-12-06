@@ -32,6 +32,21 @@ return array(
         'event' => 'a_post'
     ),
     array(
+        'badgeid' => 107,
+        'name' => 'kind',
+        'event' => 'a_post'
+    ),
+    array(
+        'badgeid' => 108,
+        'name' => 'help_others',
+        'event' => 'a_post'
+    ),
+    array(
+        'badgeid' => 109,
+        'name' => 'hero',
+        'event' => 'a_post'
+    ),
+    array(
         'badgeid' => 201,
         'name' => 'questioner',
         'event' => 'q_post'
