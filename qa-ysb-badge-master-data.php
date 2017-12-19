@@ -9,7 +9,7 @@ return array(
     array(
         'badgeid' => 102,
         'name' => 'good_answer',
-        'event' => 'q_vote_up'
+        'event' => 'a_vote_up'
     ),
     array(
         'badgeid' => 103,
