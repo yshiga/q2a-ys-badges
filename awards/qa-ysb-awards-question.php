@@ -342,6 +342,20 @@ class qa_ysb_awards_hardworking extends qa_ysb_awards_question_base
         }
 
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT userid';
+        $sql.= ' FROM ^posts';
+        $sql.= " WHERE type = 'Q'";
+        $sql.= " AND userid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " GROUP BY userid";
+        $sql.= " HAVING COUNT(userid) >= #";
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::QUESTION_COUNT));
+    }
 }
 
 /*
@@ -371,5 +385,19 @@ class qa_ysb_awards_question_master extends qa_ysb_awards_question_base
             return false;
         }
 
+    }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT userid';
+        $sql.= ' FROM ^posts';
+        $sql.= " WHERE type = 'Q'";
+        $sql.= " AND userid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " GROUP BY userid";
+        $sql.= " HAVING COUNT(userid) >= #";
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::QUESTION_COUNT));
     }
 }
