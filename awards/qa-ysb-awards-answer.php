@@ -51,6 +51,22 @@ class qa_ysb_awards_good_answer extends qa_ysb_awards_answer_base {
         }
         return array();
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT userid';
+        $sql.= ' FROM ^posts';
+        $sql.= ' WHERE upvotes >= #';
+        $sql.= ' AND type="A"';
+        $sql.= ' AND userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+
+        $sql.= ' ORDER BY userid';
+        $users = qa_db_read_all_values(qa_db_query_sub($sql, self::UPVOTE_THRESHOLD));
+        return $users;
+    }
 }
 
 /*
@@ -63,6 +79,18 @@ class qa_ysb_awards_answer extends qa_ysb_awards_answer_base
         return 101;
     }
 
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT userid';
+        $sql.= ' FROM ^posts';
+        $sql.= ' WHERE type="A"';
+        $sql.= ' AND userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= ' ORDER BY userid';
+        return qa_db_read_all_values(qa_db_query_sub($sql));
+    }
 }
 
 /*
@@ -85,6 +113,20 @@ class qa_ysb_awards_quick_answer extends qa_ysb_awards_answer_base
         
         return (int)$before15min->format('U') < (int)$params['parent']['created'];
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT a.userid';
+        $sql.= ' FROM ^posts a';
+        $sql.= ' LEFT JOIN ^posts pa ON pa.postid = a.parentid';
+        $sql.= " WHERE a.type = 'A'";
+        $sql.= ' AND a.userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND a.userid NOT IN (#)', array($exclude));
+        }
+        $sql.= ' AND a.created <= DATE_SUB(pa.created, INTERVAL # MINUTE)';
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::MIN_THRESHOLD));
+    }
 }
 
 /*
@@ -93,6 +135,7 @@ class qa_ysb_awards_quick_answer extends qa_ysb_awards_answer_base
  */
 class qa_ysb_awards_savior extends qa_ysb_awards_answer_base
 {
+    const MIN_THRESHOLD = 24;
 
     public function get_badgeid()
     {
@@ -110,6 +153,22 @@ class qa_ysb_awards_savior extends qa_ysb_awards_answer_base
         } else {
             return false;
         }
+    }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT a.userid';
+        $sql.= ' FROM ^posts a';
+        $sql.= ' LEFT JOIN ^posts pa ON pa.postid = a.parentid';
+        $sql.= " WHERE a.type = 'A'";
+        $sql.= ' AND a.userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND a.userid NOT IN (#)', array($exclude));
+        }
+        $sql.= ' AND a.created > DATE_ADD(pa.created, INTERVAL # HOUR)';
+        $sql.= ' GROUP BY pa.postid';
+        $sql.= ' ORDER BY pa.postid, a.created';
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::MIN_THRESHOLD));
     }
 }
 

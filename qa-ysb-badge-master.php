@@ -33,4 +33,11 @@ class qa_ysb_badge_master
         $sql .= " ORDER BY badgeid";
         return qa_db_read_all_values(qa_db_query_sub($sql, '%'.$event.'%'), true);
     }
+
+    public function get_all_badge_name()
+    {
+        $sql = 'SELECT name FROM ' . self::TABLE_NAME;
+        $sql .= " ORDER BY badgeid";
+        return qa_db_read_all_values(qa_db_query_sub($sql), true);
+    }
 }

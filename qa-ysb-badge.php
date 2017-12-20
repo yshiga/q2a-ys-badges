@@ -45,6 +45,18 @@ class qa_ysb_badge {
     }
 
     /**
+     * すでにそのバッジを持っているユーザー一覧を取得
+     */
+    public static function already_have_badge_users($badgeid)
+    {
+        $sql = 'SELECT bd.userid';
+        $sql .= ' FROM  ^ysb_badges AS bd';
+        $sql .= ' WHERE bd.badgeid = #';
+        $sql .= ' ORDER BY userid';
+        return qa_db_read_all_values(qa_db_query_sub($sql, $badgeid));
+    }
+
+    /**
      * ユーザーにバッチを与える
      *
      * @param [type] $userid [バッジを授与するユーザーID]
