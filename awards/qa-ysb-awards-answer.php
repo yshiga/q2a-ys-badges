@@ -218,6 +218,20 @@ class qa_ysb_awards_answer_with_image extends qa_ysb_awards_answer_base
             return false;
         }
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT a.userid';
+        $sql.= ' FROM ^posts a';
+        $sql.= " WHERE a.type = 'A'";
+        $sql.= ' AND a.userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND a.userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " AND (a.content LIKE '%<img%'";
+        $sql.= " OR a.content LIKE '%[image=%')";
+        return qa_db_read_all_values(qa_db_query_sub($sql));
+    }
 }
 
 /*

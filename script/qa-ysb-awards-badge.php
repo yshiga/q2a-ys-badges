@@ -15,10 +15,7 @@ try {
 	$bm = new qa_ysb_badge_master();
 	$all_badges = $bm->get_all_badge_name();
 	$awards = array(
-		'answer',
-		'savior',
-		'quick_answer',
-		'good_answer'
+		'answer_with_image'
 	);
 	foreach($awards as $name){
 		$classname = 'qa_ysb_awards_' . $name;
