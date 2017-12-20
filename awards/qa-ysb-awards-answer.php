@@ -262,6 +262,20 @@ class qa_ysb_awards_kind extends qa_ysb_awards_answer_base
         }
 
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT a.userid';
+        $sql.= ' FROM ^posts a';
+        $sql.= " WHERE a.type = 'A'";
+        $sql.= " AND a.userid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND a.userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " GROUP BY a.userid";
+        $sql.= " HAVING COUNT(a.userid) >= #";
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::ANSWER_COUNT));
+    }
 }
 
 /*
