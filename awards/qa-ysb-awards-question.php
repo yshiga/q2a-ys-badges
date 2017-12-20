@@ -255,6 +255,19 @@ class qa_ysb_awards_question_with_video extends qa_ysb_awards_question_base
             return false;
         }
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT userid';
+        $sql.= ' FROM ^posts';
+        $sql.= " WHERE type = 'Q'";
+        $sql.= ' AND userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " AND content LIKE '%[uploaded-video%'";
+        return qa_db_read_all_values(qa_db_query_sub($sql));
+    }
 }
 
 /*
