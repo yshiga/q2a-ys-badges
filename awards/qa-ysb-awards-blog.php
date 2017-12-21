@@ -349,7 +349,7 @@ class qa_ysb_awards_diligent_recorder extends qa_ysb_awards_blog_base
             return false;
         }
     }
-    
+
     public function get_target_users_from_achievement($exclude)
     {
         $sql = 'SELECT userid';
@@ -391,5 +391,19 @@ class qa_ysb_awards_recording_expert extends qa_ysb_awards_blog_base
         } else {
             return false;
         }
+    }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT userid';
+        $sql.= ' FROM ^blogs';
+        $sql.= " WHERE type = 'B'";
+        $sql.= " AND userid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " GROUP BY userid";
+        $sql.= " HAVING COUNT(userid) >= #";
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::BLOG_COUNT));
     }
 }
