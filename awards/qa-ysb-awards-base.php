@@ -47,6 +47,15 @@ abstract class qa_ysb_awards_base
         $this->award($users);
     }
 
+    public function save_badge_no_notification($userid)
+    {
+        $badge = new qa_ysb_badge($this->get_badgeid());
+        $badge->set_show_flag(2);
+        if(!$badge->has_badge($userid)) {
+            $badge->add_badge($userid);
+        }
+        $badge = null;
+    }
 
     private function save_badge($userid)
     {
@@ -56,4 +65,5 @@ abstract class qa_ysb_awards_base
         }
         $badge = null;
     }
+
 }

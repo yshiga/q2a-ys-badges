@@ -31,6 +31,19 @@ class qa_ysb_awards_recorder extends qa_ysb_awards_blog_base
         return 301;
     }
 
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT userid';
+        $sql.= ' FROM ^blogs';
+        $sql.= ' WHERE type="B"';
+        $sql.= ' AND userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= ' ORDER BY userid';
+        return qa_db_read_all_values(qa_db_query_sub($sql));
+    }
+
 }
 
 /*
@@ -66,6 +79,20 @@ class qa_ysb_awards_good_blog extends qa_ysb_awards_blog_base
         } else {
             return false;
         }
+    }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT userid';
+        $sql.= ' FROM ^blogs';
+        $sql.= ' WHERE upvotes >= #';
+        $sql.= ' AND type="B"';
+        $sql.= ' AND userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= ' ORDER BY userid';
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::UPVOTE_THRESHOLD));
     }
 }
 
@@ -104,6 +131,27 @@ class qa_ysb_awards_blog_with_many_comment extends qa_ysb_awards_blog_base
             return false;
         }
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT b.userid';
+        $sql.= ' FROM ^blogs b';
+        $sql.= ' LEFT JOIN (';
+        $sql.= '   SELECT count(*) AS cnt, parentid';
+        $sql.= ' FROM qa_blogs';
+        $sql.= " WHERE type='C'";
+        $sql.= " GROUP BY parentid";
+        $sql.= ") c";
+        $sql.= " ON b.postid = c.parentid";
+        $sql.= " WHERE cnt >= #";
+        $sql.= " AND type = 'B'";
+        $sql.= ' AND b.userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND b.userid NOT IN (#)', array($exclude));
+        }
+        $sql.= ' ORDER BY b.userid';
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::COMMENT_THRESHOLD));
+    }
 }
 
 /*
@@ -128,6 +176,32 @@ class qa_ysb_awards_detail_blog extends qa_ysb_awards_blog_base
             return false;
         }
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT a.userid, a.content';
+        $sql.= ' FROM ^blogs a';
+        $sql.= ' INNER JOIN';
+        $sql.= ' (SELECT userid, MAX(CHAR_LENGTH(content)) AS clen';
+        $sql.= '   FROM ^blogs';
+        $sql.= '   WHERE userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= "   AND type = 'B'";
+        $sql.= '   AND CHAR_LENGTH(content) >= #';
+        $sql.= '   GROUP BY userid) b';
+        $sql.= ' ON a.userid = b.userid';
+        $sql.= ' AND CHAR_LENGTH(a.content) = b.clen';
+        $posts = qa_db_read_all_assoc(qa_db_query_sub($sql, self::CHAR_LENGTH_THRESHOLD));
+        $users = array();
+        foreach ($posts as $post) {
+            if (mb_strlen(strip_tags($post['content']), "UTF-8") > self::CHAR_LENGTH_THRESHOLD) {
+                $users[] = $post['userid'];
+            }
+        }
+        return $users;
+    }
 }
 
 /*
@@ -151,6 +225,21 @@ class qa_ysb_awards_blog_with_image extends qa_ysb_awards_blog_base
             return false;
         }
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT userid';
+        $sql.= ' FROM ^blogs';
+        $sql.= " WHERE type = 'B'";
+        $sql.= ' AND userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " AND (content LIKE '%<img%'";
+        $sql.= " OR content LIKE '%[image=%')";
+        $sql.= " ORDER BY userid";
+        return qa_db_read_all_values(qa_db_query_sub($sql));
+    }
 }
 
 /*
@@ -173,6 +262,20 @@ class qa_ysb_awards_blog_with_video extends qa_ysb_awards_blog_base
         } else {
             return false;
         }
+    }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT DISTINCT userid';
+        $sql.= ' FROM ^blogs';
+        $sql.= " WHERE type = 'B'";
+        $sql.= ' AND userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " AND content LIKE '%[uploaded-video%'";
+        $sql.= " ORDER BY userid";
+        return qa_db_read_all_values(qa_db_query_sub($sql));
     }
 }
 
@@ -203,6 +306,20 @@ class qa_ysb_awards_blog_continuing extends qa_ysb_awards_blog_base
             return false;
         }
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT userid';
+        $sql.= ' FROM ^blogs';
+        $sql.= " WHERE type = 'B'";
+        $sql.= " AND userid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " GROUP BY userid";
+        $sql.= " HAVING COUNT(userid) >= #";
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::BLOG_COUNT));
+    }
 }
 
 /*
@@ -232,6 +349,20 @@ class qa_ysb_awards_diligent_recorder extends qa_ysb_awards_blog_base
             return false;
         }
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT userid';
+        $sql.= ' FROM ^blogs';
+        $sql.= " WHERE type = 'B'";
+        $sql.= " AND userid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " GROUP BY userid";
+        $sql.= " HAVING COUNT(userid) >= #";
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::BLOG_COUNT));
+    }
 }
 
 /*
@@ -260,5 +391,19 @@ class qa_ysb_awards_recording_expert extends qa_ysb_awards_blog_base
         } else {
             return false;
         }
+    }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT userid';
+        $sql.= ' FROM ^blogs';
+        $sql.= " WHERE type = 'B'";
+        $sql.= " AND userid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " GROUP BY userid";
+        $sql.= " HAVING COUNT(userid) >= #";
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::BLOG_COUNT));
     }
 }
