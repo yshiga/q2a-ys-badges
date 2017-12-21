@@ -11,12 +11,11 @@ require_once YSB_DIR . '/awards/qa-ysb-awards-question.php';
 require_once YSB_DIR . '/awards/qa-ysb-awards-blog.php';
 
 echo 'badge awards start...'.PHP_EOL;
+$start = microtime(true);
 try {
 	$bm = new qa_ysb_badge_master();
-	$all_badges = $bm->get_all_badge_name();
-	$awards = array(
-		'answer_with_image'
-	);
+	$awards = $bm->get_all_badge_name();
+
 	foreach($awards as $name){
 		$classname = 'qa_ysb_awards_' . $name;
 		$awardsclass = new $classname();
@@ -25,16 +24,15 @@ try {
 
 		$userids = $awardsclass->get_target_users_from_achievement($exclude);
 
-		var_export($name);
-		var_export($userids);
-
-		// foreach($userids as $userid) {
-		// 	$awardsclass->save_badge_no_notification($userid);
-		// }
+		foreach($userids as $userid) {
+			$awardsclass->save_badge_no_notification($userid);
+		}
 	}
 } catch (Exception $e) {
 	echo 'An error occurred.'.PHP_EOL;
 	echo $e->getMessage();
 	exit;
 }
+$end = microtime(true);
+echo "processing time: " . ($end - $start) . "sec";
 echo 'badge awards done!'.PHP_EOL;
