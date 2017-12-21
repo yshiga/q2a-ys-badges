@@ -176,6 +176,32 @@ class qa_ysb_awards_detail_blog extends qa_ysb_awards_blog_base
             return false;
         }
     }
+
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT a.userid, a.content';
+        $sql.= ' FROM ^blogs a';
+        $sql.= ' INNER JOIN';
+        $sql.= ' (SELECT userid, MAX(CHAR_LENGTH(content)) AS clen';
+        $sql.= '   FROM ^blogs';
+        $sql.= '   WHERE userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= "   AND type = 'B'";
+        $sql.= '   AND CHAR_LENGTH(content) >= #';
+        $sql.= '   GROUP BY userid) b';
+        $sql.= ' ON a.userid = b.userid';
+        $sql.= ' AND CHAR_LENGTH(a.content) = b.clen';
+        $posts = qa_db_read_all_assoc(qa_db_query_sub($sql, self::CHAR_LENGTH_THRESHOLD));
+        $users = array();
+        foreach ($posts as $post) {
+            if (mb_strlen(strip_tags($post['content']), "UTF-8") > self::CHAR_LENGTH_THRESHOLD) {
+                $users[] = $post['userid'];
+            }
+        }
+        return $users;
+    }
 }
 
 /*
