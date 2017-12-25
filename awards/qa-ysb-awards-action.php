@@ -125,3 +125,56 @@ class qa_ysb_awards_info_collector extends qa_ysb_awards_action_base
         return qa_db_read_all_values(qa_db_query_sub($sql, self::FAVORITE_THRESHOLD));
     }
 }
+
+/*
+ * 人気者
+ * 10人以上からフォローされる
+ */
+class qa_ysb_awards_popular_person extends qa_ysb_awards_action_base
+{
+    const FAVORITE_THRESHOLD = 10;
+
+    public function get_badgeid()
+    {
+        return 403;
+    }
+
+    public function get_award_target($event, $post_userid, $params)
+    {
+        if ($event == 'u_favorite' && $this->check_award_badge($post_userid, $params)) {
+            return array($post_userid);
+        }
+        return array();
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = 'SELECT COUNT(*)';
+        $sql.= ' FROM ^userfavorites';
+        $sql.= ' WHERE entityid = #';
+        $sql.= " AND entitytype = 'U'";
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $params['userid']));
+
+        if ($count >= self::FAVORITE_THRESHOLD) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // public function get_target_users_from_achievement($exclude)
+    // {
+    //     $sql = 'SELECT entityid';
+    //     $sql.= ' FROM ^userfavorites';
+    //     $sql.= " WHERE entitytype = 'U'";
+    //     $sql.= " AND entityid IS NOT NULL";
+    //     if (!empty($exclude)) {
+    //         $sql.= qa_db_apply_sub(' AND entityid NOT IN (#)', array($exclude));
+    //     }
+    //     $sql.= ' GROUP BY entityid';
+    //     $sql.= ' HAVING count(*) >= #';
+    //     $sql.= ' ORDER BY entityid';
+        
+    //     return qa_db_read_all_values(qa_db_query_sub($sql, self::FAVORITE_THRESHOLD));
+    // }
+}
