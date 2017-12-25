@@ -142,7 +142,7 @@ class qa_ysb_awards_popular_person extends qa_ysb_awards_action_base
     public function get_award_target($event, $post_userid, $params)
     {
         if ($event == 'u_favorite' && $this->check_award_badge($post_userid, $params)) {
-            return array($post_userid);
+            return array($params['userid']);
         }
         return array();
     }
