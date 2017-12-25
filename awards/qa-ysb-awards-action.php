@@ -109,4 +109,19 @@ class qa_ysb_awards_info_collector extends qa_ysb_awards_action_base
         }
     }
 
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT userid';
+        $sql.= ' FROM ^userfavorites';
+        $sql.= " WHERE entitytype = 'Q'";
+        $sql.= " AND userid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
+        }
+        $sql.= ' GROUP BY userid';
+        $sql.= ' HAVING count(*) >= #';
+        $sql.= ' ORDER BY userid';
+        
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::FAVORITE_THRESHOLD));
+    }
 }
