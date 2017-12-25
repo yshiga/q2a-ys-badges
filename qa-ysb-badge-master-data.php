@@ -140,5 +140,10 @@ return array(
         'badgeid' => 401,
         'name' => 'supporter',
         'event' => 'a_vote_up'
+    ),
+    array(
+        'badgeid' => 402,
+        'name' => 'info_collector',
+        'event' => 'q_favorite'
     )
 );

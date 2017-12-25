@@ -72,3 +72,41 @@ class qa_ysb_awards_supporter extends qa_ysb_awards_action_base
         return qa_db_read_all_values(qa_db_query_sub($sql, self::UPVOTE_THRESHOLD));
     }
 }
+
+/*
+ * 情報収集
+ * 質問を5件以上お気に入りに保存する
+ */
+class qa_ysb_awards_info_collector extends qa_ysb_awards_action_base
+{
+    const FAVORITE_THRESHOLD = 5;
+
+    public function get_badgeid()
+    {
+        return 402;
+    }
+
+    public function get_award_target($event, $post_userid, $params)
+    {
+        if ($event == 'q_favorite' && $this->check_award_badge($post_userid, $params)) {
+            return array($post_userid);
+        }
+        return array();
+    }
+
+    public function check_award_badge($userid, $params)
+    {
+        $sql = 'SELECT COUNT(*)';
+        $sql.= ' FROM ^userfavorites';
+        $sql.= ' WHERE userid = #';
+        $sql.= " AND entitytype = 'Q'";
+        $count = qa_db_read_one_value(qa_db_query_sub($sql, $userid));
+
+        if ($count >= self::FAVORITE_THRESHOLD) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
