@@ -135,6 +135,10 @@ return array(
         'badgeid' => 309,
         'name' => 'recording_expert',
         'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 401,
+        'name' => 'supporter',
+        'event' => 'a_vote_up'
     )
-
 );

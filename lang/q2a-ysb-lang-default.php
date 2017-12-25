@@ -4,6 +4,7 @@ return array(
   'section_answer'   => '回答バッジ',
   'section_question' => '質問バッジ',
   'section_blog'     => '飼育日誌バッジ',
+  'section_action'   => 'アクションバッジ',
 
   'badge_head_101' => '回答者',
   'badge_body_101' => '回答を投稿する',
@@ -62,9 +63,13 @@ return array(
   'badge_head_309' => '記録の達人',
   'badge_body_309' => '30件の飼育日誌を投稿する',
 
+  'badge_head_401' => '賛同',
+  'badge_body_401' => '回答を3回以上支持する',
+
   'badge_dialog_msg_answer' => '回答いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
   'badge_dialog_msg_question' => '質問いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
   'badge_dialog_msg_blog' => '飼育日誌投稿いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
+  'badge_dialog_msg_action' => 'ありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
   'badge_title' => '^バッジを取得しました',
 
   'button_close' => '閉じる',
