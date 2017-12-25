@@ -30,7 +30,6 @@ class qa_ysb_awards_supporter extends qa_ysb_awards_action_base
 
     public function get_award_target($event, $post_userid, $params)
     {
-        _log($post_userid);
         if ($event == 'a_vote_up' && $this->check_award_badge($post_userid, $params)) {
             return array($post_userid);
         }
@@ -57,15 +56,19 @@ class qa_ysb_awards_supporter extends qa_ysb_awards_action_base
 
     public function get_target_users_from_achievement($exclude)
     {
-        // $sql = 'SELECT DISTINCT userid';
-        // $sql.= ' FROM ^blogs';
-        // $sql.= ' WHERE upvotes >= #';
-        // $sql.= ' AND type="B"';
-        // $sql.= ' AND userid IS NOT NULL';
-        // if (!empty($exclude)) {
-        //     $sql.= qa_db_apply_sub(' AND userid NOT IN (#)', array($exclude));
-        // }
-        // $sql.= ' ORDER BY userid';
-        // return qa_db_read_all_values(qa_db_query_sub($sql, self::UPVOTE_THRESHOLD));
+        $sql = 'SELECT uv.userid';
+        $sql.= ' FROM ^uservotes uv';
+        $sql.= ' LEFT JOIN ^posts po';
+        $sql.= ' ON uv.postid = po.postid';
+        $sql.= ' WHERE uv.userid IS NOT NULL';
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND uv.userid NOT IN (#)', array($exclude));
+        }
+        $sql.= " AND po.type = 'A'";
+        $sql.= ' GROUP BY uv.userid';
+        $sql.= ' HAVING count(*) >= #';
+        $sql.= ' ORDER BY uv.userid';
+        
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::UPVOTE_THRESHOLD));
     }
 }
