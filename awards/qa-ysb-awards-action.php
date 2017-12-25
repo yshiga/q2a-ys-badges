@@ -162,19 +162,19 @@ class qa_ysb_awards_popular_person extends qa_ysb_awards_action_base
         }
     }
 
-    // public function get_target_users_from_achievement($exclude)
-    // {
-    //     $sql = 'SELECT entityid';
-    //     $sql.= ' FROM ^userfavorites';
-    //     $sql.= " WHERE entitytype = 'U'";
-    //     $sql.= " AND entityid IS NOT NULL";
-    //     if (!empty($exclude)) {
-    //         $sql.= qa_db_apply_sub(' AND entityid NOT IN (#)', array($exclude));
-    //     }
-    //     $sql.= ' GROUP BY entityid';
-    //     $sql.= ' HAVING count(*) >= #';
-    //     $sql.= ' ORDER BY entityid';
+    public function get_target_users_from_achievement($exclude)
+    {
+        $sql = 'SELECT entityid';
+        $sql.= ' FROM ^userfavorites';
+        $sql.= " WHERE entitytype = 'U'";
+        $sql.= " AND entityid IS NOT NULL";
+        if (!empty($exclude)) {
+            $sql.= qa_db_apply_sub(' AND entityid NOT IN (#)', array($exclude));
+        }
+        $sql.= ' GROUP BY entityid';
+        $sql.= ' HAVING count(*) >= #';
+        $sql.= ' ORDER BY entityid';
         
-    //     return qa_db_read_all_values(qa_db_query_sub($sql, self::FAVORITE_THRESHOLD));
-    // }
+        return qa_db_read_all_values(qa_db_query_sub($sql, self::FAVORITE_THRESHOLD));
+    }
 }
