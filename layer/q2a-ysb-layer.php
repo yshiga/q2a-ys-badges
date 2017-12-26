@@ -9,7 +9,8 @@ class qa_html_theme_layer extends qa_html_theme_base
     {
         if($this->template == 'user-badge'){
             $badges = $content['badges'];
-            qa_ysb_html_builder::output_user_badge($badges);
+            $ranking = $content['ranking'];
+            qa_ysb_html_builder::output_user_badge($badges, $ranking);
         } else {
             parent::main_parts($content);
         }

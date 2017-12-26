@@ -6,13 +6,14 @@ class qa_ysb_html_builder {
     /*
      * ユーザーバッジ一覧出力
      */
-    public static function output_user_badge($badges)
+    public static function output_user_badge($badges, $ranking)
     {
         $imgurl = qa_opt('site_url').self::IMAGE_BASE.'badge_';
         $imgclass = 'no-badge-icon';
         $txtclass = 'mdl-typography--body-1';
         $txtclass2 = 'mdl-typography--body-1-color-contrast mdl-color-text--grey';
         $headclass = 'mdl-typography--display-1-color-contrast';
+        $ranking_html = self::get_ranking_badges($ranking);
         include YSB_DIR . '/html/user-badge.html';
     }
 
@@ -68,5 +69,38 @@ class qa_ysb_html_builder {
                 break;
         }
         return $msgid;
+    }
+
+    /**
+     * ランキング系バッジのHTML取得
+     */
+    private static function get_ranking_badges($ranking)
+    {
+        $html = '';
+        if (!empty($ranking)) {
+            $tmpl = file_get_contents(YSB_DIR . '/html/user-badge-ranking.html');
+            $item_tmpl = file_get_contents(YSB_DIR.'/html/user-badge-item.html');
+            $list = '';
+            foreach($ranking as $id => $date) {
+                $image_url=qa_opt('site_url').self::IMAGE_BASE.'badge_'.$id.'.svg';
+                $dates = explode('-', $date);
+                $param = array(
+                    '^year' => $dates[0],
+                    '^month' => $dates[1]
+                );
+                $badge_head = strtr(qa_lang('ysb/badge_head_'.$id), $param);
+                $badge_body = strtr(qa_lang('ysb/badge_body_'.$id), $param);
+                $list .= strtr($item_tmpl, array(
+                    '^image_url' => $image_url,
+                    '^badge_head' => $badge_head,
+                    '^badge_body' => $badge_body
+                ));
+            }
+            $html = strtr($tmpl, array(
+                '^ranking_title' => qa_lang('ysb/section_ranking'),
+                '^badge_list' => $list
+            ));
+        }
+        return $html;
     }
 }

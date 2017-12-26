@@ -5,6 +5,7 @@ return array(
   'section_question' => '質問バッジ',
   'section_blog'     => '飼育日誌バッジ',
   'section_action'   => 'アクションバッジ',
+  'section_ranking'  => 'ランキングバッジ',
 
   'badge_head_101' => '回答者',
   'badge_body_101' => '回答を投稿する',
@@ -69,6 +70,13 @@ return array(
   'badge_body_402' => '質問を5件以上お気に入りに保存する',
   'badge_head_403' => '人気者',
   'badge_body_403' => '10人以上からフォローされる',
+
+  'badge_head_1001' => '^year年^month月最多質問',
+  'badge_body_1001' => '^year年^month月に最も多く質問した',
+  'badge_head_1002' => '^year年^month月最多回答',
+  'badge_body_1002' => '^year年^month月に最も多く回答した',
+  'badge_head_1003' => '^year年^month月最多飼育日誌',
+  'badge_body_1003' => '^year年^month月に最も多く飼育日誌を投稿した',
 
   'badge_dialog_msg_answer' => '回答いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
   'badge_dialog_msg_question' => '質問いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',

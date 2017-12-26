@@ -2,26 +2,36 @@
 class qa_ysb_badge_ranking
 {
     const TABLE_NAME = '^ysb_badge_ranking';
+    const QUESTION_BADGEID = 1001;
+    const ANSWER_BADGEID = 1002;
+    const BLOG_BADGEID = 1003;
 
+    /*
+     * 月間ランキングデータを作成する
+     */
     public static function create_monthly_ranking($yearmonth)
     {
         $quserids = self::get_users_for_ranking($yearmonth, 'Q');
         // var_export($quserids);
         // echo PHP_EOL;
         foreach ($quserids as $userid) {
-            self::award_ranking_badge($userid, 501, $yearmonth, 0);
+            self::award_ranking_badge($userid, self::QUESTION_BADGEID, $yearmonth, 0);
         }
         $auserids = self::get_users_for_ranking($yearmonth, 'A');
         foreach ($auserids as $userid) {
-            self::award_ranking_badge($userid, 502, $yearmonth, 0);
+            self::award_ranking_badge($userid, self::ANSWER_BADGEID, $yearmonth, 0);
         }
         $buserids = self::get_users_for_ranking($yearmonth, 'B');
         foreach ($buserids as $userid) {
-            self::award_ranking_badge($userid, 503, $yearmonth, 0);
+            self::award_ranking_badge($userid, self::BLOG_BADGEID, $yearmonth, 0);
         }
     }
 
-    public static function get_users_for_ranking($yearmonth, $type)
+    /**
+     * ランキングバッジ対象ユーザーの取得
+     * 最多投稿数が複数名になる場合もある
+     */
+    private static function get_users_for_ranking($yearmonth, $type)
     {
         if ($type == 'B') {
             $table = '^blogs';
@@ -49,7 +59,10 @@ class qa_ysb_badge_ranking
         return qa_db_read_all_values(qa_db_query_sub($sql, $type, $yearmonth, $type, $yearmonth));
     }
 
-    public static function award_ranking_badge($userid, $badgeid, $yearmonth, $show_flag)
+    /**
+     * ランキングバッジ授与
+     */
+    private static function award_ranking_badge($userid, $badgeid, $yearmonth, $show_flag)
     {
         if (!self::exists_ranking($userid, $badgeid, $yearmonth)) {
             qa_db_query_sub(
@@ -62,7 +75,10 @@ class qa_ysb_badge_ranking
         }
     }
 
-    public static function exists_ranking($userid, $badgeid, $yearmonth)
+    /**
+     * すでにランキングバッジを取得しているかどうか？
+     */
+    private static function exists_ranking($userid, $badgeid, $yearmonth)
     {
         $sql = 'SELECT COUNT(*)';
         $sql.= " FROM " . self::TABLE_NAME;
@@ -77,4 +93,15 @@ class qa_ysb_badge_ranking
         }
     }
 
+    /**
+     * useridでランキングバッジを取得する
+     */
+    public static function find_by_userid($userid)
+    {
+        $sql = 'SELECT badgeid, award_date';
+        $sql.= ' FROM '. self::TABLE_NAME;
+        $sql.= ' WHERE userid = #';
+        $sql.= ' ORDER BY award_date';
+        return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid));
+    }
 }
