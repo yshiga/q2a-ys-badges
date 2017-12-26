@@ -63,6 +63,9 @@ class qa_ysb_html_builder {
             case '3':
                 $msgid = 'ysb/badge_dialog_msg_blog';
                 break;
+            case '4':
+                $msgid = 'ysb/badge_dialog_msg_action';
+                break;
         }
         return $msgid;
     }

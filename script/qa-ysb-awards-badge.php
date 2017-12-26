@@ -9,6 +9,7 @@ require_once YSB_DIR . '/awards/qa-ysb-awards-base.php';
 require_once YSB_DIR . '/awards/qa-ysb-awards-answer.php';
 require_once YSB_DIR . '/awards/qa-ysb-awards-question.php';
 require_once YSB_DIR . '/awards/qa-ysb-awards-blog.php';
+require_once YSB_DIR . '/awards/qa-ysb-awards-action.php';
 
 echo 'badge awards start...'.PHP_EOL;
 $start = microtime(true);

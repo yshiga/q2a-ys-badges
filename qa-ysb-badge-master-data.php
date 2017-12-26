@@ -135,6 +135,20 @@ return array(
         'badgeid' => 309,
         'name' => 'recording_expert',
         'event' => 'qas_blog_b_post'
+    ),
+    array(
+        'badgeid' => 401,
+        'name' => 'supporter',
+        'event' => 'a_vote_up'
+    ),
+    array(
+        'badgeid' => 402,
+        'name' => 'info_collector',
+        'event' => 'q_favorite'
+    ),
+    array(
+        'badgeid' => 403,
+        'name' => 'popular_person',
+        'event' => 'u_favorite'
     )
-
 );
