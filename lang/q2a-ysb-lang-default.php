@@ -82,6 +82,7 @@ return array(
   'badge_dialog_msg_question' => '質問いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
   'badge_dialog_msg_blog' => '飼育日誌投稿いただきありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
   'badge_dialog_msg_action' => 'ありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
+  'badge_dialog_msg_ranking' => 'ありがとうございます。<br>^さんの当サイトへの貢献の表彰として<br>バッジを進呈させていただきます。',
   'badge_title' => '^バッジを取得しました',
 
   'button_close' => '閉じる',

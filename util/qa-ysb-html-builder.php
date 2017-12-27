@@ -1,5 +1,7 @@
 <?php
 
+require_once YSB_DIR.'/qa-ysb-badge-ranking.php';
+
 class qa_ysb_html_builder {
     const IMAGE_BASE = 'qa-plugin/q2a-ys-badges/img/';
 
@@ -38,9 +40,14 @@ class qa_ysb_html_builder {
         $badges = array();
         foreach($ids as $id) {
             $msgid = self::get_msgid($id);
+            if ($id > 1000) {
+                $badge_name = qa_ysb_badge_ranking::get_badge_name($id);
+            } else {
+                $badge_name = qa_lang('ysb/badge_head_'.$id);
+            }
             $badges[] = array(
                 'id' => $id,
-                'title' => qa_lang_sub('ysb/badge_title', qa_lang('ysb/badge_head_'.$id)),
+                'title' => qa_lang_sub('ysb/badge_title', $badge_name),
                 'img' => qa_opt('site_url').self::IMAGE_BASE.'badge_'.$id.'.svg',
                 'msg' => qa_lang_sub($msgid, $handle)
             );
@@ -54,19 +61,23 @@ class qa_ysb_html_builder {
     private static function get_msgid($id)
     {
         $msgid = '';
-        switch (substr($id,0,1)) {
-            case '1':
-                $msgid = 'ysb/badge_dialog_msg_answer';
-                break;
-            case '2':
-                $msgid = 'ysb/badge_dialog_msg_question';
-                break;
-            case '3':
-                $msgid = 'ysb/badge_dialog_msg_blog';
-                break;
-            case '4':
-                $msgid = 'ysb/badge_dialog_msg_action';
-                break;
+        if ($id > 1000) {
+            $msgid = 'ysb/badge_dialog_msg_ranking';
+        } else {
+            switch (substr($id,0,1)) {
+                case '1':
+                    $msgid = 'ysb/badge_dialog_msg_answer';
+                    break;
+                case '2':
+                    $msgid = 'ysb/badge_dialog_msg_question';
+                    break;
+                case '3':
+                    $msgid = 'ysb/badge_dialog_msg_blog';
+                    break;
+                case '4':
+                    $msgid = 'ysb/badge_dialog_msg_action';
+                    break;
+            }
         }
         return $msgid;
     }

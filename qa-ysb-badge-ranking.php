@@ -104,4 +104,48 @@ class qa_ysb_badge_ranking
         $sql.= ' ORDER BY award_date';
         return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid));
     }
+
+    /*
+     * useridでまだダイアログを表示していないバッジを取得
+     */
+    public static function find_by_not_noticed_badges($userid)
+    {
+        $sql = 'SELECT badgeid';
+        $sql .= ' FROM ' . self::TABLE_NAME;
+        $sql .= ' WHERE userid = # AND show_flag = 0';
+        $sql .= ' ORDER BY badgeid';
+        return qa_db_read_all_assoc(qa_db_query_sub($sql, $userid));
+    }
+
+    /**
+     * badgeidからバッジ名を取得して返す
+     */
+    public static function get_badge_name($id)
+    {
+        $date = self::get_award_date($id);
+        $dates = explode('-', $date);
+        $name = qa_lang('ysb/badge_head_'.$id);
+        return strtr($name, array(
+            '^year' => $dates[0],
+            '^month' => $dates[1]
+        ));
+    }
+
+    public static function get_award_date($id)
+    {
+        $sql = 'SELECT award_date';
+        $sql.= ' FROM '. self::TABLE_NAME;
+        $sql.= ' WHERE badgeid = #';
+        $res = qa_db_read_one_value(qa_db_query_sub($sql, $id));
+        return $res;
+    }
+
+    public static function update_show_flag($userid, $badgeid)
+    {
+        $sql = 'UPDATE '.self::TABLE_NAME;
+        $sql .= ' SET show_flag = #, updated = NOW()';
+        $sql .= ' WHERE badgeid = # AND userid = #';
+        qa_db_query_sub($sql, 1, $badgeid, $userid);
+    }
+
 }
