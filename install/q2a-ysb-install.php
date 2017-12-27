@@ -9,7 +9,7 @@ class q2a_ysb_install
 {
 
     // 生成するテーブル。qa_ysb_のプレフィックスは抜き
-    private $table_names = array('badges', 'badge_master');
+    private $table_names = array('badges', 'badge_master', 'badge_ranking');
 
     /**
      * create table function of framework
