@@ -89,7 +89,6 @@ class qa_ysb_html_builder {
     {
         $html = '';
         if (!empty($ranking)) {
-            _log($ranking);
             $tmpl = file_get_contents(YSB_DIR . '/html/user-badge-ranking.html');
             $item_tmpl = file_get_contents(YSB_DIR.'/html/user-badge-item.html');
             $list = '';
