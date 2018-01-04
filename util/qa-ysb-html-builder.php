@@ -92,9 +92,10 @@ class qa_ysb_html_builder {
             $tmpl = file_get_contents(YSB_DIR . '/html/user-badge-ranking.html');
             $item_tmpl = file_get_contents(YSB_DIR.'/html/user-badge-item.html');
             $list = '';
-            foreach($ranking as $id => $date) {
+            foreach($ranking as $badge) {
+                $id = $badge['badgeid'];
                 $image_url=qa_opt('site_url').self::IMAGE_BASE.'badge_'.$id.'.svg';
-                $dates = explode('-', $date);
+                $dates = explode('-', $badge['award_date']);
                 $param = array(
                     '^year' => $dates[0],
                     '^month' => $dates[1]

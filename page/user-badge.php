@@ -18,6 +18,6 @@
     $qa_content = qa_content_prepare(true);
     $qa_content['title'] = qa_lang('ysb/page_title');
     $qa_content['badges'] = array_column($badges, 'hasbadge', 'badgeid');
-    $qa_content['ranking'] = array_column($ranking, 'award_date', 'badgeid');
+    $qa_content['ranking'] = $ranking;
 
     return $qa_content;
