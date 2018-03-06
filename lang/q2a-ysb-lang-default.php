@@ -65,7 +65,7 @@ return array(
   'badge_body_309' => '30件の飼育日誌を投稿する',
 
   'badge_head_401' => '賛同',
-  'badge_body_401' => '回答を3回以上支持する',
+  'badge_body_401' => '回答を3回以上いいね！する',
   'badge_head_402' => '情報収集',
   'badge_body_402' => '質問を5件以上お気に入りに保存する',
   'badge_head_403' => '人気者',
