@@ -110,7 +110,7 @@ class qa_ysb_badge_ranking
      */
     public static function find_by_not_noticed_badges($userid)
     {
-        $sql = 'SELECT badgeid';
+        $sql = 'SELECT badgeid, id';
         $sql .= ' FROM ' . self::TABLE_NAME;
         $sql .= ' WHERE userid = # AND show_flag = 0';
         $sql .= ' ORDER BY badgeid';
@@ -120,11 +120,11 @@ class qa_ysb_badge_ranking
     /**
      * badgeidからバッジ名を取得して返す
      */
-    public static function get_badge_name($id)
+    public static function get_badge_name($badge)
     {
-        $date = self::get_award_date($id);
+        $date = self::get_award_date($badge['id']);
         $dates = explode('-', $date);
-        $name = qa_lang('ysb/badge_head_'.$id);
+        $name = qa_lang('ysb/badge_head_'.$badge['badgeid']);
         return strtr($name, array(
             '^year' => $dates[0],
             '^month' => $dates[1]
@@ -135,17 +135,17 @@ class qa_ysb_badge_ranking
     {
         $sql = 'SELECT award_date';
         $sql.= ' FROM '. self::TABLE_NAME;
-        $sql.= ' WHERE badgeid = #';
+        $sql.= ' WHERE id = #';
         $res = qa_db_read_one_value(qa_db_query_sub($sql, $id));
         return $res;
     }
 
-    public static function update_show_flag($userid, $badgeid)
+    public static function update_show_flag($userid, $id)
     {
         $sql = 'UPDATE '.self::TABLE_NAME;
         $sql .= ' SET show_flag = #, updated = NOW()';
-        $sql .= ' WHERE badgeid = # AND userid = #';
-        qa_db_query_sub($sql, 1, $badgeid, $userid);
+        $sql .= ' WHERE id = # AND userid = #';
+        qa_db_query_sub($sql, 1, $id, $userid);
     }
 
 }

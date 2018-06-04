@@ -37,7 +37,7 @@ class qa_ysb_badge {
      */
     public static function find_by_not_noticed_badges($userid)
     {
-        $sql = 'SELECT bd.badgeid';
+        $sql = 'SELECT bd.badgeid, 0 as id';
         $sql .= ' FROM  ^ysb_badges AS bd';
         $sql .= ' WHERE bd.userid = # AND bd.show_flag = 0';
         $sql .= ' ORDER BY badgeid';
