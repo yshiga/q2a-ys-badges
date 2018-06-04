@@ -24,10 +24,10 @@ class qa_html_theme_layer extends qa_html_theme_base
             $badges = qa_ysb_badge::find_by_not_noticed_badges($userid);
             $ranking_badges = qa_ysb_badge_ranking::find_by_not_noticed_badges($userid);
             $badges = array_merge($badges, $ranking_badges);
-            $badgeids = array_column($badges, 'badgeid');
-            if(count($badgeids) > 0) {
-                qa_ysb_html_builder::output_badge_dialog($badgeids);
-                $this->update_badges_flag($badgeids);
+            // $badgeids = array_column($badges, 'badgeid');
+            if(count($badges) > 0) {
+                qa_ysb_html_builder::output_badge_dialog($badges);
+                $this->update_badges_flag($badges);
             }
         }
         parent::notices();
@@ -36,14 +36,14 @@ class qa_html_theme_layer extends qa_html_theme_base
     /*
      * バッジのshow_flag を 1 にする(ダイアログ表示済み)
      */
-    private function update_badges_flag($badgeids)
+    private function update_badges_flag($badges)
     {
         $userid = qa_get_logged_in_userid();
-        foreach($badgeids as $id) {
-            if($id > 1000) {
-                qa_ysb_badge_ranking::update_show_flag($userid, $id);
+        foreach($badges as $badge) {
+            if($badge['badgeid'] > 1000) {
+                qa_ysb_badge_ranking::update_show_flag($userid, $badge['id']);
             } else {
-                $badge = new qa_ysb_badge($id);
+                $badge = new qa_ysb_badge($badge['badgeid']);
                 $badge->set_show_flag(1);
                 $badge->update_badge($userid);
                 $badge = null;

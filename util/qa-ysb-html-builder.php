@@ -22,33 +22,33 @@ class qa_ysb_html_builder {
     /*
      * バッジのダイアログ出力
      */
-    public static function output_badge_dialog($badgeids)
+    public static function output_badge_dialog($badges)
     {
         $url = qa_opt('site_url').self::IMAGE_BASE;
         $handle = qa_get_logged_in_handle();
         $badgesurl = qa_path('user/'.$handle.'/badge',null,qa_opt('site_url'));
-        $badgeobj = self::get_badges($badgeids);
+        $badgeobj = self::get_badges($badges);
         include YSB_DIR . '/html/badge-dialog.html';
     }
 
     /*
      * バッジ情報取得
      */
-    private static function get_badges($ids)
+    private static function get_badges($in_badges)
     {
         $handle = qa_get_logged_in_handle();
         $badges = array();
-        foreach($ids as $id) {
-            $msgid = self::get_msgid($id);
-            if ($id > 1000) {
-                $badge_name = qa_ysb_badge_ranking::get_badge_name($id);
+        foreach($in_badges as $bd) {
+            $msgid = self::get_msgid($bd['badgeid']);
+            if ($bd['badgeid'] > 1000) {
+                $badge_name = qa_ysb_badge_ranking::get_badge_name($bd);
             } else {
-                $badge_name = qa_lang('ysb/badge_head_'.$id);
+                $badge_name = qa_lang('ysb/badge_head_'.$bd['badgeid']);
             }
             $badges[] = array(
-                'id' => $id,
+                'id' => $bd['badgeid'],
                 'title' => qa_lang_sub('ysb/badge_title', $badge_name),
-                'img' => qa_opt('site_url').self::IMAGE_BASE.'badge_'.$id.'.svg',
+                'img' => qa_opt('site_url').self::IMAGE_BASE.'badge_'.$bd['badgeid'].'.svg',
                 'msg' => qa_lang_sub($msgid, $handle)
             );
         }
